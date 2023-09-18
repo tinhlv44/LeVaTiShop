@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dt">
+  <DataContextMoniker Name="/dtDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2ffcd16a-63a0-4b84-ac83-3523b356177a" absoluteBounds="0.75, 2, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/dtDataContext/Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e9aff119-cd3e-4612-8b84-effb76d11117" absoluteBounds="0.765, 2.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a0f94d0-eff7-4b16-8bfd-d268fab2767d" absoluteBounds="3.5, 1, 2, 3.1170068359375009">
+      <DataClassMoniker Name="/dtDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="27ef3774-76e5-4983-9894-f461af1a68d3" absoluteBounds="3.515, 1.46, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="66cb4b7c-4a57-4593-b994-87c81d5d60a2" absoluteBounds="0.75, 5.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/dtDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a93526fb-5433-4e4b-9c3b-f8f31859ac70" absoluteBounds="0.765, 6.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.59699625651042); (3.5 : 2.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dtDataContext/Category/Category_Product" />
+      <nodes>
+        <classShapeMoniker Id="2ffcd16a-63a0-4b84-ac83-3523b356177a" />
+        <classShapeMoniker Id="8a0f94d0-eff7-4b16-8bfd-d268fab2767d" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

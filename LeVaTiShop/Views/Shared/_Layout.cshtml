@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewBag.Title</title>
+    <script src="~/set/js/main.js"></script>
+    <link rel="stylesheet" href="~/set/css/base.css">
+    <link rel="stylesheet" href="~/set/css/main.css">
+    <link rel="stylesheet" href="~/set/icon-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="web">
+        <header class="header">
+            @Html.Action("Header", "Home")
+            @Html.Action("Menu", "Home")            
+        </header>
+        <div class="container">
+            <div class="product_type">
+                @Html.Action("SlideShow", "Home")
+            </div>
+            @RenderBody()
+        </div>
+        @Html.Partial("_PartialFooter")
+        
+    </div>
+    <div class="bg_modal" id="click_modal">
+    </div>
+</body>
+</html>

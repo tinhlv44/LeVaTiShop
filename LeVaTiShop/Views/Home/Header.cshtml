@@ -1,0 +1,135 @@
+﻿
+@using LeVaTiShop.Models
+@{
+    User kh = (User)Session["KhachHang"];
+}
+
+<div class="grid">
+    <div class="infor">
+        <ul class="infor_list">
+            <li class="infor_list-item borderleft">
+                <a href="index.html" class="infor_list-link">
+                    <img class="infor_img" src=".\set\img\logo.jpg" alt="">
+                </a>
+            </li>
+            <li class="infor_list-item">
+                Liên hệ
+                <a href="https://www.facebook.com/levati.it" class="infor_icon-link" target="_blank">
+                    <i class="infor_icons fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/tinhlv.it/" class="infor_icon-link" target="_blank">
+                    <i class="infor_icons fa-brands fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="header_search">
+            <div class="header_sinput">
+                <input type="text" class="search_input" placeholder="Nhập tên thiết bị bạn cần tìm..." maxlength="40">
+                <div class="search_topsearch">
+                    <h3 class="stop_h3">Top tìm kiếm</h3>
+                    <ul class="search_slist">
+                        <li class="search_sitem">
+                            <a class="search_slink">Điện thoại xịn giá rẻ</a>
+                        </li>
+                        <li class="search_sitem">
+                            <a href="product_iphone-13-pro-max.html" class="search_slink">iPhone 13 Pro max</a>
+                        </li>
+                        <li class="search_sitem">
+                            <a href="product_xiaomi-12-pro.html" class="search_slink">Xiaomi 12 Pro</a>
+                        </li>
+                        <li class="search_sitem">
+                            <a class="search_slink">Điện thoại rẻ như cho</a>
+                        </li>
+                        <li class="search_sitem">
+                            <a class="search_slink">Laptop xịn sò con bò</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="search_button">
+                <i class="search_button-icon fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <ul class="infor_list">
+            <li class="infor_list-item infor_notifyhover">
+                <a class="infor_list-link">
+                    <i class="infor_icons fa-solid fa-bell"></i>
+                    Thông báo
+                </a>
+                <div class="infor_notify">
+                    <div class="infor_notifydiv">Thông báo</div>
+                    <div class="infor_notifyct">
+                        <ul class="notify_list">
+                            <li class="notify_item">
+                                <img src="~/set/img/top_mb.jpg" alt="" class="notify_img">
+                                <h3 class="notify_heading">Top điện thoại cực xịn sò</h3>
+                            </li>
+                            <li class="notify_item">
+                                <img src="~/set/img/build_pc.jpg" alt="" class="notify_img">
+                                <h3 class="notify_heading">Làm sao để có thể xây dựng cho mình một bộ PC cực chất</h3>
+                            </li>
+                            <li class="notify_item">
+                                <img src="~/set/img/iphone13s.jpg" alt="" class="notify_img">
+                                <h3 class="notify_heading">iPhone 13 ra mắt</h3>
+                            </li>
+                            <li class="notify_item">
+                                <img src="~/set/img/security.jpg" alt="" class="notify_img">
+                                <h3 class="notify_heading">Cách bảo mật thông tin trên điện thoại di động</h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="infor_list-item">
+                <a href="help.html" class="infor_list-link">
+                    <i class="infor_icons fa-solid fa-circle-question"></i>
+                    Trợ giúp
+                </a>
+            </li>
+            <li class="infor_list-item list_cart">
+                <a class="infor_list-link">
+                    <i class="infor_icons fa-solid fa-cart-shopping"></i>
+                    Giỏ hàng
+                </a>
+                <div id="cart_icon"></div>
+                <div class="pcart">
+                    <div class="pcart_hollow">
+                        <i class="icon_sad fa-solid fa-face-frown"></i>
+                        <div class="pcart_hollowct">Không có sản phẩm trong giỏ hàng</div>
+                    </div>
+                    <div class="pcart_prot" style="display:none;">
+                        <ul class="pcart_list" id="cart">
+                        </ul>
+                        <div class="pcart_btn">
+                            <a onclick="buying_stock()" class="pcart_button btn btn_green">Đặt hàng</a>
+                            <a onclick="clear_stock()" class="pcart_button btn pcart_clear">Xóa</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            @if (Session["KhachHang"] == null)
+            {
+                <li class="infor_list-item borderleft">
+                    <a href="/Login/Register" class="infor_list-link item-strong">
+                        Đăng ký
+                    </a>
+                </li>
+                <li class="infor_list-item ">
+                    <a href="/Login/Login" class="infor_list-link item-strong">
+                        Đăng nhập
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="infor_list-item">
+                    <a href="/Login/Logout" class="infor_list-link item-strong">
+                        Xin chào, @kh.fullName
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>
