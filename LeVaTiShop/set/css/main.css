@@ -432,18 +432,47 @@
 	color: var(--relo--color);
 	cursor: pointer;
 }
+.input-container {
+	position: relative;
+	margin-bottom: 25px;
+	display: inline-block;
+	width: 100%;
+}
+.input-container_min {
+	width: 49%;
+}
+.input-container .relo_label {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 16px;
+	color: black;
+	pointer-event: none;
+	transition: all 0.5s ease-in-out;
+}
+.input-container .relo_input {
+	border: 0;
+	border-bottom: 1px solid black;
+	background: transparent;
+	padding: 8px 0 5px 0;
+	color: black;
+}
+.input-container .relo_input:focus {
+	border: none;
+	outline: none;
+	border-bottom: 1px solid var(--relo--color);
+}
+.input-container .relo_input:focus ~ label,
+.input-container .relo_input:valid ~ label {
+	top: -12px;
+	font-size: 12px;
+}
 .relo_input{
 	width: 100%;
-	height: 40px;
-	margin-top: 16px;
-	padding-left: 12px;
-	font-size: 22px;
-	border: 1px solid var(--border--color);
-	border-radius: 6px;
-	outline-color: var(--relo--color);
+	font-size: 18px;
 }
 .relo_form{
-	margin-top: 16px;
+	margin-top: 32px;
 }
 .relo_formaside{
 	margin-top: 28px;
@@ -460,7 +489,7 @@
 	color: #4d4b4b;
 }
 .relo_btn{
-	margin-top: 88px;
+	margin-top: 16px;
 	display: flex;
 	justify-content: flex-end;
 }
@@ -534,7 +563,6 @@
 	color: rgb(250, 11, 11);
 }
 .relo_hidden{
-	margin-top: 24px;
 	display: flex;
 	align-items: center;
 }
@@ -1296,3 +1324,8 @@
 	text-decoration: line-through;
 	font-size: 14px;
 }
+
+
+
+/*test*/
+

@@ -20,19 +20,21 @@
             <div class="relo_form">
                 <div class="relo_err">
                     <p class="relo_errct">
-                        @ViewData["errUser"]     
+                        @ViewData["errUser"]
                     </p>
                 </div>
-                <div class="relo_gr">
-                    <input type="text" id="relo_input_user" class="relo_input" placeholder="Số điện thoại" name="relo_input_user">
+                <div class="input-container">
+                    <input type="text" class="relo_input" name="nameUser" required="">
+                    <label class="relo_label">Tên đăng nhập</label>
                 </div>
                 <div class="relo_err">
                     <p class="relo_errct">
-                        @ViewData["errPass"]                        
+                        @ViewData["errPass"]
                     </p>
                 </div>
-                <div class="relo_gr">
-                    <input type="password" id="relo_input_pass" class="relo_input" placeholder="Mật khẩu" name="relo_input_pass">
+                <div class="input-container">
+                    <input type="password" class="relo_input" name="password" required="">
+                    <label class="relo_label">Mật khẩu</label>
                 </div>
                 <div class="relo_hidden">
                     <input type="checkbox" class="relo_inputcheck" onclick="hiddenpass()">
@@ -46,8 +48,13 @@
                 </div>
             </div>
             <div class="relo_btn">
-                <button type="button" class="btn relo_btnl" onclick="window.history.go(-1)">TRỞ LẠI</button>
-                <button type="submit" class="btn relo_btnr" @*onclick="checklogin()"*@>ĐĂNG NHẬP</button>
+                <a href="@Url.Action("Index", "Home")">
+                    <button type="button" class="relo_btnl btn">TRỞ LẠI</button>
+                </a>
+                <a href="#">
+                    <button class="btn relo_btnr">ĐĂNG NHẬP</button>
+                </a>
+                <input type="hidden" value="@ViewBag.url" name="url" />
             </div>
         </form>
         <div class="relo_social">

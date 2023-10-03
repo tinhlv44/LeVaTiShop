@@ -10,48 +10,40 @@
         <div class="relo_container">
             <div class="relo_head">
                 <h3 class="relo_heading">Đăng ký</h3>
-                <a href="login.html" class="relo_relo">Đăng nhập</a>
+                <a href="@Url.Action("Login", "Login")" class="relo_relo">Đăng nhập</a>
             </div>
             <div class="relo_form">
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Số điện thoại của bạn không đúng định dạng!
-                    </p>
+
+
+                <div class="input-container">
+                    <input type="text" class="relo_input" name="" required="">
+                    <label class="relo_label">Tên đăng nhập</label>
                 </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Bạn chưa nhập số điện thoại!
-                    </p>
+                <div class="input-container input-container_min">
+                    <input type="password" class="relo_input" name="" required="">
+                    <label class="relo_label">Mật khẩu</label>
                 </div>
-                <div class="relo_gr">
-                    <input type="text" id="relo_input_user" class="relo_input" placeholder="Số điện thoại đăng ký">
+                <div class="input-container input-container_min">
+                    <input type="password" class="relo_input" name="" required="">
+                    <label class="relo_label">Nhập lại mật khẩu</label>
                 </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Mật khẩu phải có ít nhất 8 kí tự
-                    </p>
+                <div class="input-container input-container_min">
+                    <input type="text" class="relo_input" name="" required="">
+                    <label class="relo_label">Họ và tên</label>
                 </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Bạn chưa nhập mật khẩu!
-                    </p>
+                <div class="input-container input-container_min">
+                    <input type="tel" class="relo_input" name="" required="">
+                    <label class="relo_label">Số điện thoại</label>
                 </div>
-                <div class="relo_gr">
-                    <input type="password" id="relo_input_pass" class="relo_input" placeholder="Mật khẩu">
+                <div class="input-container">
+                    <input type="text" class="relo_input" name="" required="">
+                    <label class="relo_label">Email</label>
                 </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Mật khẩu không đúng!
-                    </p>
+                <div class="input-container">
+                    <input type="text" class="relo_input" name="" required="">
+                    <label class="relo_label">Địa chỉ</label>
                 </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        Vui lòng nhập lại mật khẩu!
-                    </p>
-                </div>
-                <div class="relo_gr">
-                    <input type="password" id="relo_input_repass" class="relo_input" placeholder="Nhập lại mật khẩu">
-                </div>
+
                 <div class="relo_hidden">
                     <input type="checkbox" class="relo_inputcheck" onclick="hiddenpass()">
                     <div class="relo_hiddenct">Hiện mật khẩu</div>
@@ -59,14 +51,18 @@
             </div>
             <div class="relo_formaside">
                 <p class="relo_dieukhoang">
-                    Bằng việc đăng ký, bạn đã đồng ý với MOBILE Shop về
+                    Bằng việc đăng ký, bạn đã đồng ý với H&T Shop về
                     <a class="dieukhoang" href="#">Điều khoảng dịch vụ</a> &
                     <a class="dieukhoang" href="#">Chính sách bảo mật</a>
                 </p>
             </div>
             <div class="relo_btn">
-                <button class="relo_btnl btn" onclick="window.history.go(-1)">TRỞ LẠI</button>
-                <button class="relo_btnr btn" onclick="checkregis()">ĐĂNG KÝ</button>
+                <a href="@Url.Action("Index", "Home")">
+                    <button class="relo_btnl btn">TRỞ LẠI</button>
+                </a>
+                <a href="#">
+                    <button class="relo_btnr btn">ĐĂNG KÝ</button>
+                </a>
             </div>
         </div>
         <div class="relo_social">

@@ -2293,6 +2293,7 @@
     <Content Include="set\js\main.js" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Home\DetailProduct.cshtml" />
     <None Include="Views\Shared\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

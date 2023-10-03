@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeVaTiShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace LeVaTiShop.Controllers
 {
     public class HomeController : Controller
     {
+        dtDataContext dt = new dtDataContext();
         public ActionResult Index()
         {
             return View();
@@ -24,7 +26,11 @@ namespace LeVaTiShop.Controllers
         {
             return PartialView();
         }
-        
+        public ActionResult DetailProduct()
+        {
+            var x = dt.Products.First();
+            return PartialView(x);
+        }
 
     }
 }

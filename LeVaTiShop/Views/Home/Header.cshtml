@@ -29,7 +29,7 @@
                     <h3 class="stop_h3">Top tìm kiếm</h3>
                     <ul class="search_slist">
                         <li class="search_sitem">
-                            <a class="search_slink">Điện thoại xịn giá rẻ</a>
+                            <a href="/Home/DetailProduct" class="search_slink">Điện thoại xịn giá rẻ</a>
                         </li>
                         <li class="search_sitem">
                             <a href="product_iphone-13-pro-max.html" class="search_slink">iPhone 13 Pro max</a>
@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li class="infor_list-item ">
-                    <a href="/Login/Login" class="infor_list-link item-strong">
+                    <a href="@Url.Action("Login", "Login", new {url = Request.Url.ToString()})" class="infor_list-link item-strong">
                         Đăng nhập
                     </a>
                 </li>
