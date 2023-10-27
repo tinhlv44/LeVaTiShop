@@ -1,0 +1,68 @@
+﻿@model LeVaTiShop.Models.User
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div style="display:flex">    
+    <div class="oj_content_img">
+        @if (Model.avatar == null)
+        {
+            <img src="~/set/img/user/default.jpg" title="Avatar @Model.nameUser" />
+        }
+        else
+        {
+            <img src="~/set/img/user/@(Model.avatar+".jpg")" title="Avatar @Model.nameUser" />
+        }
+    </div>
+    <div>
+        <div class="modal_body">
+            <div class="detail_oj_title">
+                <h5>Thông tin tài khoản</h5>
+            </div>
+            <div class="detail_oj_content">
+
+                <div class="oj_content_list">
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.idUser)</p>
+                        <p class="oj_content_p">@Model.idUser</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.nameUser)</p>
+                        <p class="oj_content_p">@Model.nameUser</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.password)</p>
+                        <p class="oj_content_p">........</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.fullName)</p>
+                        <p class="oj_content_p">@Model.fullName</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.email)</p>
+                        <p class="oj_content_p">@Model.email</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.address)</p>
+                        <p class="oj_content_p">@Model.address</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.phone)</p>
+                        <p class="oj_content_p">@Model.phone</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.role)</p>
+                        <p class="oj_content_p">@(Model.role == true && Model.idUser == 1?"Admin":(Model.role==true)?"Quản lý":"Khách hàng")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oj_footer">
+            <button class="btn btn_exit" type="button">Quay lại</button>
+        </div>
+    </div>
+    
+</div>
+

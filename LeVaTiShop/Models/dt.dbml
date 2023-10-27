@@ -1,12 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LeVaTiShop" Class="dtDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.Cart" Member="Carts">
-    <Type Name="Cart">
-      <Column Name="idCart" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Product_Cart" Member="Product" ThisKey="idProduct" OtherKey="idProduct" Type="Product" IsForeignKey="true" />
-      <Association Name="User_Cart" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
+  <Table Name="dbo.Brand" Member="Brands">
+    <Type Name="Brand">
+      <Column Name="idBrand" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nameBrand" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Brand_Product" Member="Products" ThisKey="idBrand" OtherKey="idBrand" Type="Product" />
     </Type>
   </Table>
   <Table Name="dbo.Categories" Member="Categories">
@@ -36,6 +33,14 @@
       <Association Name="User_Order" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Message" Member="Messages">
+    <Type Name="Message">
+      <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="messageContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="User_Message" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Products" Member="Products">
     <Type Name="Product">
       <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -44,14 +49,15 @@
       <Column Name="price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="discountedPrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="inventory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="brand" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="idBrand" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="image" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="specifications" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="isDiscounted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="isFeatured" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="isDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Product_Cart" Member="Carts" ThisKey="idProduct" OtherKey="idProduct" Type="Cart" />
       <Association Name="Product_DetailOrder" Member="DetailOrders" ThisKey="idProduct" OtherKey="idProduct" Type="DetailOrder" />
+      <Association Name="Brand_Product" Member="Brand" ThisKey="idBrand" OtherKey="idBrand" Type="Brand" IsForeignKey="true" />
       <Association Name="Category_Product" Member="Category" ThisKey="idCategory" OtherKey="idCategory" Type="Category" IsForeignKey="true" />
     </Type>
   </Table>
@@ -64,10 +70,11 @@
       <Column Name="fullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="role" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="isDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="User_Cart" Member="Carts" ThisKey="idUser" OtherKey="idUser" Type="Cart" />
       <Association Name="User_Order" Member="Orders" ThisKey="idUser" OtherKey="idUser" Type="Order" />
+      <Association Name="User_Message" Member="Messages" ThisKey="idUser" OtherKey="idUser" Type="Message" />
     </Type>
   </Table>
 </Database>

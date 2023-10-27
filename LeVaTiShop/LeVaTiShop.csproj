@@ -45,17 +45,69 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -76,10 +128,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -121,16 +169,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\CartHelper.cs" />
     <Compile Include="Models\dt.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dt.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\function.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +207,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -159,6 +217,20 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Header.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Sidebar.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ManagerProducts.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\UserDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ProductDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\DetailOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\SearchOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\DeleteProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\EditProduct.cshtml" />
     <Content Include="Models\dt.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>dt.designer.cs</LastGenOutput>
@@ -2226,60 +2298,92 @@
     <Content Include="set\img\build_pc.jpg" />
     <Content Include="set\img\iphone13s.jpg" />
     <Content Include="set\img\logo.jpg" />
-    <Content Include="set\img\product\asus\asus_tuf_gaming.jpg" />
-    <Content Include="set\img\product\asus\asus_zenbook.jpg" />
-    <Content Include="set\img\product\asus\vivo_book.jpg" />
-    <Content Include="set\img\product\iphone\iphone_11\den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_11\do.jpg" />
-    <Content Include="set\img\product\iphone\iphone_11\tim.jpg" />
-    <Content Include="set\img\product\iphone\iphone_11\trang.jpg" />
-    <Content Include="set\img\product\iphone\iphone_11\xanh.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\do.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\lam.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\pro_den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\trang.jpg" />
-    <Content Include="set\img\product\iphone\iphone_12\xanh_la.jpg" />
-    <Content Include="set\img\product\iphone\iphone_13_pro_max\den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_13_pro_max\trang.jpg" />
-    <Content Include="set\img\product\iphone\iphone_13_pro_max\vang.jpg" />
-    <Content Include="set\img\product\iphone\iphone_13_pro_max\xanh.jpg" />
-    <Content Include="set\img\product\iphone\iphone_8_plus\den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_xs\den.jpg" />
-    <Content Include="set\img\product\iphone\iphone_x\den.jpg" />
-    <Content Include="set\img\product\macbook\macbook_air_2020.jpg" />
-    <Content Include="set\img\product\macbook\macbook_pro_2020.jpg" />
-    <Content Include="set\img\product\macbook\macbook_pro_2021.jpg" />
-    <Content Include="set\img\product\oppo\oppo_a93\den.jpg" />
-    <Content Include="set\img\product\oppo\oppo_find_x2\lam.jpg" />
-    <Content Include="set\img\product\oppo\oppo_reno_10x_zoom\xanh.jpg" />
-    <Content Include="set\img\product\oppo\realme_gt_neo2_5g\den.jpg" />
-    <Content Include="set\img\product\oppo\realme_gt_neo2_5g\xanh_la.jpg" />
-    <Content Include="set\img\product\oppo\realme_gt_neo3\xanh.jpg" />
-    <Content Include="set\img\product\oppo\realme_gt_neo_flash_5g\hong.jpg" />
-    <Content Include="set\img\product\phukien\AirPods.jpg" />
-    <Content Include="set\img\product\phukien\pin_li_polymer.jpg" />
-    <Content Include="set\img\product\phukien\skin_13_pro.jpg" />
-    <Content Include="set\img\product\samsung\galaxy_note_20_ultra_5g\den.jpg" />
-    <Content Include="set\img\product\samsung\samsung_galaxy_s21_plus_5g\tim.jpg" />
-    <Content Include="set\img\product\samsung\samsung_galaxy_z_flip3_5g\tim.jpg" />
-    <Content Include="set\img\product\samsung\samsung_galaxy_z_flip3_5g\vang.jpg" />
-    <Content Include="set\img\product\samsung\samsung_galaxy_z_flip3_5g\xanh_la.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_12_pro\den.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_12_pro\hong.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_12_pro\xanh-da-troi.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_12_pro\xanh-la.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_black-shark-5\den.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_black-shark-5\trang.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_black-shark-5\xam.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_poco_x4_pro_5g\den.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k30_5g\tim.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k30_5g\trang.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k30_5g\xanh.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k40_gaming\den.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k40_gaming\trang.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k40_gaming\vang.jpg" />
-    <Content Include="set\img\product\xiaomi\xiaomi_redmi_k40_gaming\xam.jpg" />
+    <Content Include="set\img\product\Asus ExpertCenter AIO A3402WBAT i5 1235U8GB512GB23.8FullHDTouchBàn phímChuộtWin11 %28WA013W%29\asus-expertcenter-aio-a3402wbat-i5-wa013w-1-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Có dây Gaming Asus TUF M3\chuot-gaming-asus-tuf-m3-den-2-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-do-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-xanh-duong-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây DareU LM106G\chuot-khong-day-dareu-lm106g-1-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây DareU LM106G\chuot-khong-day-dareu-lm106g-20-180x125.jpg" />
+    <Content Include="set\img\product\Chuột Không dây Rapoo B2\chuot-khong-day-rapoo-b2-1-180x125.jpg" />
+    <Content Include="set\img\product\HP AIO ProOne 240 G9 i3 1215U8GB512GB23.8FullHDBàn phímChuộtWin11 %286M3T0PA%29\hp-aio-proone-240-g9-i3-6m3t0pa-1-1-180x125.jpg" />
+    <Content Include="set\img\product\iPhone 11\1c1c1c.jpg" />
+    <Content Include="set\img\product\iPhone 11\fdfaf5.jpg" />
+    <Content Include="set\img\product\iPhone 12\iphone-12-violet-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 12\iphone-12-xanh-la-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 13\iphone-13-blue-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 13\iphone-13-midnight-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 13\iphone-13-pink-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 13\iphone-13-starlight-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\iPhone-14-plus-thumb-den-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\iPhone-14-plus-thumb-xanh-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\iPhone-14-thumb-do-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\iPhone-14-thumb-tim-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\iPhone-14-thumb-trang-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 15\iphone-15-den-thumb-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 15\iphone-15-vang-thumb-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 15\iphone-15-xanh-la-thumb-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 15\iphone-15-xanh-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A17\oppo-a17k-vang-thumb-2-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A17\oppo-a17k-vang-thumb-ă-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A38\oppo-a38-black-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A38\oppo-a38-gold-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A58 8GB\oppo-a58-4g-black-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A58 8GB\oppo-a58-4g-green-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A77s\oppo-a77s-den-thumb-1-2-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A77s\oppo-a77s-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A78\oppo-a78-den-thumb-1-2-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A78\oppo-a78-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A98 5G\oppo-a98-5g-den-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A98 5G\oppo-a98-5g-xanh-thumb-1-2-200x200.jpg" />
+    <Content Include="set\img\product\OPPO Reno10 Pro 5G\oppo-reno10-pro-grey-thumbnew-200x200.jpg" />
+    <Content Include="set\img\product\OPPO Reno10 Pro 5G\oppo-reno10-pro-tim-thumbnew-200x200.jpg" />
+    <Content Include="set\img\product\Pin sạc dự phòng 10000mAh Type C PD QC 3.0 30W Anker A1256\pin-sac-du-phong-10000mah-type-c-pd-qc-3-0-30w-anker-a1256-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-den-1-2-180x125.jpg" />
+    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-tim-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-trang-1-1-180x125.jpg" />
+    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-xanh-1-1-180x125.jpg" />
+    <Content Include="set\img\product\realme 10\realme-10-den-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme 10\realme-10-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\realme 11 128GB\realme-11-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme 11 128GB\realme-11-vang-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme 11 Pro 5G\realme-11-pro-5g-green-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\realme 11 Pro 5G\realme-11-pro-5g-white-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme C51 64GB\realme-c51-den-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme C51 64GB\realme-c51-xanh-thumbnail-200x200.jpg" />
+    <Content Include="set\img\product\realme C53\realme-c53-black-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme C53\realme-c53-gold-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\realme C55 6GB\realme-c35-den-thumb-200x200.jpg" />
+    <Content Include="set\img\product\realme C55 6GB\realme-c35-vang-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-den-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-nau-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-xanh-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-humb-bac-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-thumb-den-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-thumb-nau-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-den-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-tim-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-xanh-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy M34 5g\samsung-galaxy-m34-xanh-ngoc-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy M34 5g\samsung-galaxy-m34-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-kem-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-tim-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-xam-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-xanh-mint-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- den-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- kem-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- xanh-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-12s-xanh-duong-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-note-12s-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-note12s-den-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-4g-mono-den-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-4g-mono-xanh-1-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-vang-1-thumb-momo-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-xanh-duong-1-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Đồng hồ Elio 20 mm Nữ ES145-01\elio-es145-01-nu-2-180x125.jpg" />
+    <Content Include="set\img\product\Đồng hồ Elio 23 mm Nữ EL141-03\elio-el141-03-nu-3-180x125.jpg" />
+    <Content Include="set\img\product\Đồng hồ Elio 23 mm Nữ ES146-02\elio-es146-02-nu-3-180x125.jpg" />
+    <Content Include="set\img\product\Đồng hồ Elio 32 mm Nữ EL142-02\elio-el142-02-nu-3-180x125.jpg" />
     <Content Include="set\img\security.jpg" />
     <Content Include="set\img\slideshow\galaxy_zlip3.jpg" />
     <Content Include="set\img\slideshow\gtneo2.jpg" />
@@ -2294,6 +2398,14 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Home\DetailProduct.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Login\ChangePassword.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Home\Sidebar.cshtml" />
+    <Content Include="Views\Home\Brand.cshtml" />
+    <Content Include="Views\Login\Profile.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
     <None Include="Views\Shared\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2366,10 +2478,14 @@
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\SlideShow.cshtml" />
     <Content Include="Views\Shared\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="set\font\" />
+    <Folder Include="set\img\user\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

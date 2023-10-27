@@ -1,15 +1,26 @@
-﻿
-@using LeVaTiShop.Models
+﻿@using LeVaTiShop.Models
 @{
-    User kh = (User)Session["KhachHang"];
+    User u = (User)Session["User"];
+}
+
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length-3)<text>...</text>
+    }
 }
 
 <div class="grid">
     <div class="infor">
         <ul class="infor_list">
             <li class="infor_list-item borderleft">
-                <a href="index.html" class="infor_list-link">
-                    <img class="infor_img" src=".\set\img\logo.jpg" alt="">
+                <a href="/Home/Index" class="infor_list-link">
+                    <img class="infor_img" src="~/set/img/logo.jpg" alt="H&T Shop">
                 </a>
             </li>
             <li class="infor_list-item">
@@ -22,12 +33,12 @@
                 </a>
             </li>
         </ul>
-        <div class="header_search">
+        <form class="header_search" action="@Url.Action("Search","Search")" method="post">
             <div class="header_sinput">
-                <input type="text" class="search_input" placeholder="Nhập tên thiết bị bạn cần tìm..." maxlength="40">
-                <div class="search_topsearch">
-                    <h3 class="stop_h3">Top tìm kiếm</h3>
-                    <ul class="search_slist">
+                <input type="text" class="search_input" name="keyWord" placeholder="Nhập tên thiết bị bạn cần tìm..." maxlength="40">
+                <!--<div class="search_topsearch">
+                    <h3 class="stop_h3">Top tìm kiếm</h3>-->
+                    @*<ul class="search_slist">
                         <li class="search_sitem">
                             <a href="/Home/DetailProduct" class="search_slink">Điện thoại xịn giá rẻ</a>
                         </li>
@@ -43,13 +54,13 @@
                         <li class="search_sitem">
                             <a class="search_slink">Laptop xịn sò con bò</a>
                         </li>
-                    </ul>
-                </div>
+                    </ul>*@
+                <!--</div>-->
             </div>
             <button class="search_button">
                 <i class="search_button-icon fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>
+        </form>
         <ul class="infor_list">
             <li class="infor_list-item infor_notifyhover">
                 <a class="infor_list-link">
@@ -81,13 +92,13 @@
                 </div>
             </li>
             <li class="infor_list-item">
-                <a href="help.html" class="infor_list-link">
+                <a href="/Home/Help" class="infor_list-link">
                     <i class="infor_icons fa-solid fa-circle-question"></i>
                     Trợ giúp
                 </a>
             </li>
             <li class="infor_list-item list_cart">
-                <a class="infor_list-link">
+                <a href="/Cart/Cart" class="infor_list-link">
                     <i class="infor_icons fa-solid fa-cart-shopping"></i>
                     Giỏ hàng
                 </a>
@@ -108,25 +119,56 @@
                 </div>
             </li>
 
-            @if (Session["KhachHang"] == null)
+            @if (Session["User"] == null)
             {
                 <li class="infor_list-item borderleft">
-                    <a href="/Login/Register" class="infor_list-link item-strong">
+                    <a href="@Url.Action("Register", "Login", new { url = Request.Url.ToString() })" class="infor_list-link item-strong">
+                        <i class="infor_icons fa-solid fa-user-plus"></i>
                         Đăng ký
                     </a>
                 </li>
-                <li class="infor_list-item ">
-                    <a href="@Url.Action("Login", "Login", new {url = Request.Url.ToString()})" class="infor_list-link item-strong">
+                <li class="infor_list-item">
+                    <a href="@Url.Action("Login", "Login", new { url = Request.Url.ToString() })" class="infor_list-link item-strong">
+                        <i class="infor_icons fa-solid fa-arrow-right-to-bracket"></i>
                         Đăng nhập
                     </a>
                 </li>
             }
             else
             {
-                <li class="infor_list-item">
-                    <a href="/Login/Logout" class="infor_list-link item-strong">
-                        Xin chào, @kh.fullName
+                <li class="infor_list-item dropdown">
+                    <a class="infor_list-link item-strong dropdown-toggle" data-bs-toggle="dropdown">
+                        @Truncate("Xin chào, " + @u.fullName, 25)
                     </a>
+                    <ul id="myDropdown" class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a href="@Url.Action("Profile", "Login", new{id=u.idUser})" class="dropdown-link">
+                                <i class="fa-solid fa-user"></i>
+                                Thông tin tài khoản
+                            </a>
+                        </li>
+                        @if (u.role == true)
+                        {
+                            <li class="dropdown-item">
+                                <a href="/Admin/Admin/Index" class="dropdown-link">
+                                    <i class="fa-solid fa-list-check"></i>
+                                    Quản lí Website
+                                </a>
+                            </li>
+                        }
+                        <li class="dropdown-item">
+                            <a href="/Login/ChangePassword" class="dropdown-link">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                Đổi mật khẩu
+                            </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="/Login/Logout" class="dropdown-link">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             }
 

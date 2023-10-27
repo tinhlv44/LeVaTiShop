@@ -1,0 +1,123 @@
+﻿@using LeVaTiShop.Models;
+
+@using PagedList.Mvc;
+@model PagedList.PagedList<Product>
+
+
+@{
+    ViewBag.Title = "H&T Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    function f = new function();
+    List<List<string>> sColor = new List<List<string>>();
+    List<List<string>> sImage = new List<List<string>>();
+    List<decimal> disPrice = new List<decimal>();
+    //disPrice.Add(0);
+
+    for (int i = 0; i < Model.Count; i++)
+    {
+        List<string> sC = new List<string>();
+        List<string> sI = new List<string>();
+        f.analysisImage(Model[i].image, out sC, out sI);
+        sColor.Add(sC);
+        sImage.Add(sI);
+        if (Model[i].discountedPrice.HasValue)
+        {
+            disPrice.Add(Model[i].discountedPrice.Value);
+        }
+    }
+}
+<div class="min-vw-100 d-flex justify-content-center">
+    @*<div class="w-25">
+        @Html.Action("Sidebar", "Home")
+    </div>*@
+    <div class="w-75">
+        <div class="product">
+            <div class="product_type">
+                <div class="product_heading">
+                    <h3 class="product_headingct">Kết quả tìm kiếm</h3>
+                </div>
+                <div class="prot">
+                    @if (Model.Count == 0)
+                    {
+                        <div class="cart_empty">
+                            <div class="pcart_hollow">
+                                <i class="icon_sad fa-solid fa-face-frown"></i>
+                                <div class="pcart_hollowct">Không tìm thấy kết quả</div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        for (int pro = 0; pro < Model.Count(); pro++)
+                        {
+                            <div class="w-25">
+                                <div class="prot_frame">
+                                    <a href="@Url.Action("DetailProduct","Home", new {id = Model[pro].idProduct })" class="prot_aimg">
+                                        <img class="prot_img" src="~/set/img/product/@string.Join(" ", Model[pro].nameProduct.ToLower().Split(' '))/@sImage[pro][0]" alt="@Model[pro].nameProduct">
+                                    </a>
+                                    <h3 class="prot_heading">@Model[pro].nameProduct</h3>
+                                    <div class="prot_coin">
+                                        @if (Model[pro].isDiscounted)
+                                        {
+                                            <div class="coinpre">@disPrice[pro].ToString("N0")đ</div>
+                                            <div class="coinpast">@Model[pro].price.ToString("N0")đ</div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="coinpre">@Model[pro].price.ToString("N0")đ</div>
+                                        }
+                                    </div>
+                                    <div class="prot_btn">
+                                        <button class="prot_pay btn btn_green" onclick="end_stock()">Đặt hàng ngay</button>
+                                        <a href="@Url.Action("AddToCart", "Cart", new { id = Model[pro].idProduct, img= sImage[pro][0], price = Model[pro].discountedPrice})" class="prot_cart" onclick="add_cart(@(pro+1))">
+                                            <i class="icon_cart_pro fa-solid fa-cart-shopping"></i>
+                                        </a>
+                                    </div>
+                                    @if (Model[pro].isDiscounted)
+                                    {
+                                        <div class="prot_sale">Giảm @((Model[pro].price - disPrice[pro]).ToString("N0"))đ</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+        <div class="menuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { pa = page }))
+        </div>
+        <style>
+            .menuTrang {
+                display: inline;
+                text-align: center;
+            }
+        </style>
+    </div>
+</div>
+
+
+<script>
+    // Lưu giá trị cuộn của trang vào cookie khi người dùng cuộn trang
+    window.addEventListener('scroll', function () {
+        document.cookie = "scrollPosition=" + window.pageYOffset + "; path=/";
+    });
+
+    // Khôi phục giá trị cuộn của trang sau khi tải lại
+    window.onload = function () {
+        var scrollPosition = getCookie("scrollPosition");
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+        }
+    };
+
+    // Hàm để lấy giá trị của cookie
+    function getCookie(name) {
+        var value = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return value ? value.pop() : '';
+    }
+</script>

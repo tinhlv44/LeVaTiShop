@@ -1,0 +1,34 @@
+﻿<div class="sidebar_admin" id="sidebar">
+    <ul class="sidebar_menu">
+        <li>
+            <a href="/Admin/Admin/Index" class="sidebar_menu_item @(LeVaTiShop.Areas.Admin.Controllers.AdminController.ActionName == "ManagerUsers" ? "sidebarActive" : "")">
+                <i class="fa-solid fa-circle-right"></i>
+                <span class="sidebar_menu_content">Quản lý tài khoản @ViewBag.YourData</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Product/Index" class="sidebar_menu_item @(LeVaTiShop.Areas.Admin.Controllers.AdminController.ActionName == "ManagerProducts" ? "sidebarActive" : "")">
+                <i class="fa-solid fa-circle-right"></i>
+                <span class="sidebar_menu_content">Quản lý sản phẩm</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Order/Index" class="sidebar_menu_item @(LeVaTiShop.Areas.Admin.Controllers.AdminController.ActionName == "ManagerOrders" ? "sidebarActive" : "")">
+                <i class="fa-solid fa-circle-right"></i>
+                <span class="sidebar_menu_content">Quản lý đơn hàng</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Admin/Reply" class="sidebar_menu_item @(LeVaTiShop.Areas.Admin.Controllers.AdminController.ActionName == "Reply" ? "sidebarActive" : "")">
+                <i class="fa-solid fa-circle-right"></i>
+                <span class="sidebar_menu_content">Phản hồi</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Admin/ThongKe" class="sidebar_menu_item @(LeVaTiShop.Areas.Admin.Controllers.AdminController.ActionName == "ThongKe" ? "sidebarActive" : "")">
+                <i class="fa-solid fa-circle-right"></i>
+                <span class="sidebar_menu_content">Thống kê</span>
+            </a>
+        </li>
+    </ul>
+</div>

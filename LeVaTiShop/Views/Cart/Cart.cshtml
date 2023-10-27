@@ -1,0 +1,100 @@
+﻿@model IEnumerable<LeVaTiShop.Models.CartItem>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Giỏ Hàng</h2>
+@if (Model == null)
+{
+    <div class="cart_empty">
+        <div class="pcart_hollow">
+            <i class="icon_sad fa-solid fa-face-frown"></i>
+            <div class="pcart_hollowct">Không tìm thấy kết quả</div>
+        </div>
+    </div>
+}
+else
+{
+    <table class="table table_cart">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nameProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nameProduct)
+                </td>
+
+                <td>
+                    <img src="~/set/img/product/@item.nameProduct/@item.image" alt="@item.nameProduct" />
+                </td>
+
+                @*@using (Html.BeginForm("UpdateQuantity", "Cart", new {id=item.ID}))
+                {*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        <input type="number" name="newQuantity" value="@item.quantity" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DetailProduct", "Home", new { id = item.ID })" class="btn btn_min btn_detail" title="Cập nhật số lượng">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        <button  class="btn btn_min btn_edit" title="Cập nhật số lượng" onchange="updateQuantity(@item.ID, this.value)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <a href="@Url.Action("Delete", "Cart", new { id = item.ID })" class="btn btn_min btn_trash">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+               @* }*@
+            </tr>
+        }
+
+    </table>
+    <div>
+        <a href="@Url.Action("ClearCart", "Cart")" class="btn relo_btnr">
+            Xóa hết sản phẩm
+        </a>
+        <a href="@Url.Action("", "Cart")" class="btn relo_btnr">
+            Thanh Toán
+        </a>
+    </div>
+    
+}
+
+<script>
+    function updateQuantity(id, newQuantity) {
+        $.ajax({
+            url: '@Url.Action("UpdateQuantity", "Cart")',
+            type: 'POST',
+            data: { id: id, newQuantity: newQuantity },
+            success: function () {
+                location.reload(); // Tải lại trang giỏ hàng sau khi cập nhật số lượng
+            }
+        });
+    }
+</script>

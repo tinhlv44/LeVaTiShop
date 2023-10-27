@@ -1,0 +1,98 @@
+﻿@using System.Text.RegularExpressions;
+@model LeVaTiShop.Models.Product
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+    List<String> sColor;
+    List<String> sImage;
+    f.analysisImage(Model.image, out sColor, out sImage);
+    string input = Model.specifications;
+
+    List<string> lfield;
+    List<string> lvalue;
+    f.analysisSpecifications(input, out lfield, out lvalue);
+}
+
+
+<div style="display:flex">
+    <div>
+        <div class="modal_body">
+            <div class="detail_oj_title">
+                <h5>Thông tin sản phẩm</h5>
+            </div>
+            <div class="detail_oj_content">
+
+                <div class="oj_content_list">
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.idProduct)</p>
+                        <p class="oj_content_p">@Model.idProduct</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.nameProduct)</p>
+                        <p class="oj_content_p">@Model.nameProduct</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.description)</p>
+                        <div class="oj_content_p">@Html.Raw(Model.description)</div>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.inventory)</p>
+                        <p class="oj_content_p">@Model.inventory</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.price)</p>
+                        <p class="oj_content_p">@Html.FormatValue(Model.price, "{0:#,##0}") VNĐ</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.discountedPrice)</p>
+                        <p class="oj_content_p">@Html.FormatValue(Model.discountedPrice, "{0:#,##0}") VNĐ</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.idCategory)</p>
+                        <p class="oj_content_p">@(Model.Category.name)</p>
+                    </div>
+                    <div class="modal_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.image)</p>
+                        <div id="imageContainer">
+                            @for (int i = 0; i < sImage.Count; i++)
+                            {
+                                <div>
+                                    <img src="~/set/img/product/@Model.nameProduct/@sImage[i]" alt="@Model.nameProduct" style="max-width: 200px; max-height: 200px;">
+                                    <input type="color" name="colors" value="@sColor[i]">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isDiscounted)</p>
+                        <input type="checkbox" class="infor_ck relo_inputcheck" asp-for="@Model.isDiscounted" checked="@Model.isDiscounted">
+                        <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isFeatured)</p>
+                        <input type="checkbox" class="infor_ck relo_inputcheck"  asp-for="@Model.isFeatured" checked="@Model.isFeatured">
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.specifications)</p>
+                        <table class="table table-bordered">
+                            @for (int i = 0; i < lfield.Count(); i++)
+                            {
+                                <tr>
+                                    <td class='detail_title'>@lfield[i]</td>
+                                    <td class='detail_centent'>@lvalue[i]</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oj_footer">
+            <a href="@Url.Action("EditProduct", "Product", new {id = Model.idProduct})" class="btn btn_nor btn_save">Sửa</a>
+            <a href="@Url.Action("Index", "Product")" class="btn btn_nor btn_exit">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+
+

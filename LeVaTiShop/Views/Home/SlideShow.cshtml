@@ -1,10 +1,20 @@
-﻿<div class="slideshow">
-    <div class="myslide">
-        <a href="product_realme-gt-neo2-5g.html" class="slide_aimg">
-            <img src="~/set/img/slideshow/gtneo2.jpg" class="slide_img">
-        </a>
-    </div>
-    <div class="myslide">
+﻿@{ 
+    List<string> slide = new List<string> { "Realme GT Neo2", "Samsung Galaxy Z Fold5 5G 256GB", "OPPO Reno10 Pro 5G", "Xiaomi Redmi Note 12 Pro", "iPhone 11", "iPhone 12" };
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+}
+
+
+<div class="slideshow">
+    @for (int i = 1; i <= 6; i++)
+    {
+        <div class="myslide">
+            <a href="@Url.Action("DetailProduct","Home", new { id = f.getId(slide[i-1])})" class="slide_aimg">
+                <img src="~/set/img/slideshow/@("sl"+i+".jpg")" class="slide_img">
+            </a>
+        </div>
+    }
+
+    @*<div class="myslide">
         <a href="product_iphone-11.html" class="slide_aimg">
             <img src="~/set/img/slideshow/iphone_11_chinh_hang.jpg" class="slide_img">
         </a>
@@ -32,12 +42,18 @@
         <a href="product_iphone-13-pro-max.html" class="slide_aimg">
             <img src="~/set/img/slideshow/iphone_13_pro_max.jpg" class="slide_img">
         </a>
-    </div>
+    </div>*@
     <div class="slide_prev" onclick="plusSlides(-1)">❮</div>
     <div class="slide_next" onclick="plusSlides(1)">❯</div>
 
     <div class="slide_list">
-        <div class="slide_link demo" onclick="currentSlide(1)">
+        @for (int i = 1; i <= 6; i++)
+        {
+            <div class="slide_link demo" onclick="currentSlide(@i)">
+                <p class="slide_linkct">@slide[i-1]</p>
+            </div>
+        }
+        @*<div class="slide_link demo" onclick="currentSlide(1)">
             <p class="slide_linkct">Realme GT Neo 2 5G</p>
         </div>
         <div class="slide_link demo" onclick="currentSlide(2)">
@@ -54,18 +70,22 @@
         </div>
         <div class="slide_link demo" onclick="currentSlide(6)">
             <p class="slide_linkct">iPhone 13 Pro Max</p>
-        </div>
+        </div>*@
     </div>
     <div class="slide_id">
+        @for (int i = 1; i <= 6; i++)
+        {
+            <div class="slide_idd"></div>
+        }
+        @*<div class="slide_idd"></div>
         <div class="slide_idd"></div>
         <div class="slide_idd"></div>
         <div class="slide_idd"></div>
         <div class="slide_idd"></div>
-        <div class="slide_idd"></div>
-        <div class="slide_idd"></div>
+        <div class="slide_idd"></div>*@
     </div>
     <script>
-                        let slideIndex = 1;
-                        showSlides(slideIndex);
+        let slideIndex = 1;
+        showSlides(slideIndex);
     </script>
 </div>

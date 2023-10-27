@@ -1,6 +1,28 @@
-﻿<nav class="header_nav">
+﻿@using LeVaTiShop.Models;
+@model List<Brand>
+<nav class="header_nav">
     <ul class="main-menu">
+        @foreach (var i in Model)
+        {
+            <li>
+                <a href="@Url.Action("Search", "Home", new {priceForm=0, priceTo=999000000, nameBrand=i.nameBrand})">
+                    <i class="fa-solid fa-mobile"></i>
+                    @i.nameBrand
+                </a>
+            </li>
+        }
         <li>
+            <a href="#">
+                <i class="fa-solid fa-receipt"></i>
+                Khuyến mãi
+            </a>
+            <ul class="sub_menu2">
+                <li onclick="not_promotion()"><a>Thông tin trao thưởng</a></li>
+                <li onclick="not_promotion()"><a>Tất cả khuyến mãi</a></li>
+            </ul>
+        </li>
+
+        @*<li>
             <a href="phone.html">
                 <i class="fa-solid fa-mobile"></i>
                 Điện thoại
@@ -117,16 +139,7 @@
                 <i class="fa-solid fa-sim-card"></i>
                 SIM & thẻ cào
             </a>
-        </li>
-        <li>
-            <a>
-                <i class="fa-solid fa-receipt"></i>
-                Khuyến mãi
-            </a>
-            <ul class="sub_menu2">
-                <li onclick="not_promotion()"><a>Thông tin trao thưởng</a></li>
-                <li onclick="not_promotion()"><a>Tất cả khuyến mãi</a></li>
-            </ul>
-        </li>
+        </li>*@
+
     </ul>
 </nav>

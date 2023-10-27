@@ -1,0 +1,152 @@
+﻿@using System.Text.RegularExpressions;
+@model LeVaTiShop.Models.Product
+
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+    List<String> sColor;
+    List<String> sImage;
+    f.analysisImage(Model.image, out sColor, out sImage);
+    string input = Model.specifications;
+
+    List<string> lfield;
+    List<string> lvalue;
+    f.analysisSpecifications(input, out lfield, out lvalue);
+}
+
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<div style="display:flex">
+    <div>
+        <div class="modal_body">
+            <div class="modal_box modal_box_detail">
+                <div class="modal_body">
+                    <div class="modal_title">
+                        <h5>Chỉnh sửa thông tin sản phẩm</h5>
+                    </div>
+                    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="id" value="@Model.idProduct" />
+                        <div class="modal_content">
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.nameProduct)</label>
+                                <input class="modal_content_input" type="text" name="nameProduct" id="nameProduct" value="@Model.nameProduct" required>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.inventory)</label>
+                                <input class="modal_content_input numeric-input" type="text" maxlength="5" value="@Model.inventory" name="inventory" id="inventory" required>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.price)</label>
+                                <input class="modal_content_input numeric-input" type="text" maxlength="11" value="@Model.price" name="price" required>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.discountedPrice)</label>
+                                <input class="modal_content_input numeric-input" type="text" maxlength="11" value="@Model.discountedPrice" name="discountedPrice" required>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.Brand.nameBrand)</label>
+                                @Html.DropDownListFor(x => x.Brand, ViewBag.Brand as List<SelectListItem>, new { @class = "modal_content_input" })
+
+                                @*@Html.DropDownList("Brand")*@
+                                @*<input class="modal_content_input" type="text" name="brand" id="brand" required>*@
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.Category.name)</label>
+                                @Html.DropDownListFor(x => x.Category, ViewBag.Category as List<SelectListItem>, new { @class = "modal_content_input" })
+                                @*@Html.DropDownList("Category")*@
+                                @*<input class="modal_content_input" type="text" name="category" id="category" required>*@
+                            </div>
+                            <div class="modal_content_item w-100">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.description)</label>
+                                <textarea id="editor" name="description">@Model.description</textarea>
+                            </div>
+                            <div class="oj_content_item">
+                                <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isDiscounted)</p>
+                                <input type="checkbox" class="infor_ck relo_inputcheck" name="isDiscounted" value="true" @(Model.isDiscounted ? "checked" : "")>
+                                <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isFeatured)</p>
+                                <input type="checkbox" class="infor_ck relo_inputcheck" name="isFeatured" value="true" @(Model.isFeatured ? "checked" : "")>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">@Html.DisplayNameFor(model => model.specifications)</label>
+                                <input class="modal_content_input" type="text" name="specifications" id="specifications" value="@Model.specifications" required>
+                                <button id="toggleButton" class="btn btn_nor" type="button">Ghi bảng</button>
+                                <table class="table" id="specificationsTable" style="display:none;">
+                                    <tbody>
+                                        @for (int i = 0; i < lfield.Count; i++)
+                                        {
+                                            <tr>
+                                                <td class="detail_title"><input type="hidden" name="Hspecification" value="@lfield[i]" />@lfield[i]</td>
+                                                <td class="detail_centent"><input type="text" name="specification" value="@lvalue[i]" class="form-control" /></td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label" for="images">Images:</label>
+                                <input class="modal_content_input" type="file" name="images" id="images" accept="image/*" multiple onchange="displayImages(this)" />
+                            </div>
+                            <div id="imageContainer">
+                                @for (int i = 0; i < sImage.Count; i++)
+                                {
+                                    <img src="~/set/img/product/@Model.nameProduct/@sImage[i]" alt="Uploaded Image" style="max-width: 200px; max-height: 200px;">
+                                    <input type="color" name="colors" value="@sColor[i]">
+                                }
+                            </div>
+    
+
+                            </div>
+    
+                            <div class="modal_footer">
+                                <button class="btn btn_nor btn_exit" type="submit">Sửa sản phẩm</button>
+                            <a class="btn btn_nor btn_cancel" href="/Admin/Product/Index">Hủy bỏ</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="oj_footer">
+            <button class="btn btn_nor btn_exit" type="button">Quay lại</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    // Lắng nghe sự kiện click vào button
+    document.getElementById("toggleButton").addEventListener("click", function () {
+        var table = document.getElementById("specificationsTable");
+        var input = document.getElementById("specifications");
+        var btn = document.getElementById("toggleButton");
+        // Kiểm tra trạng thái hiển thị của bảng và input để thay đổi
+        if (table.style.display === "none") {
+            // Hiển thị bảng và ẩn input
+            table.style.display = "table";
+            input.style.display = "none";
+            input.required = false;
+            btn.innerHTML = "Ghi mã";
+        } else {
+            // Hiển thị input và ẩn bảng
+            table.style.display = "none";
+            input.style.display = "block";
+            input.required = true;
+            btn.innerHTML = "Ghi bảng";
+        }
+    });
+</script>
+
+

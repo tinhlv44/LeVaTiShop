@@ -30,9 +30,9 @@ namespace LeVaTiShop.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertCart(Cart instance);
-    partial void UpdateCart(Cart instance);
-    partial void DeleteCart(Cart instance);
+    partial void InsertBrand(Brand instance);
+    partial void UpdateBrand(Brand instance);
+    partial void DeleteBrand(Brand instance);
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
@@ -42,6 +42,9 @@ namespace LeVaTiShop.Models
     partial void InsertOrder(Order instance);
     partial void UpdateOrder(Order instance);
     partial void DeleteOrder(Order instance);
+    partial void InsertMessage(Message instance);
+    partial void UpdateMessage(Message instance);
+    partial void DeleteMessage(Message instance);
     partial void InsertProduct(Product instance);
     partial void UpdateProduct(Product instance);
     partial void DeleteProduct(Product instance);
@@ -78,11 +81,11 @@ namespace LeVaTiShop.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Cart> Carts
+		public System.Data.Linq.Table<Brand> Brands
 		{
 			get
 			{
-				return this.GetTable<Cart>();
+				return this.GetTable<Brand>();
 			}
 		}
 		
@@ -110,6 +113,14 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<Message> Messages
+		{
+			get
+			{
+				return this.GetTable<Message>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Product> Products
 		{
 			get
@@ -127,198 +138,84 @@ namespace LeVaTiShop.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cart")]
-	public partial class Cart : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Brand")]
+	public partial class Brand : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _idCart;
+		private int _idBrand;
 		
-		private int _idUser;
+		private string _nameBrand;
 		
-		private int _idProduct;
-		
-		private int _amount;
-		
-		private EntityRef<Product> _Product;
-		
-		private EntityRef<User> _User;
+		private EntitySet<Product> _Products;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidCartChanging(int value);
-    partial void OnidCartChanged();
-    partial void OnidUserChanging(int value);
-    partial void OnidUserChanged();
-    partial void OnidProductChanging(int value);
-    partial void OnidProductChanged();
-    partial void OnamountChanging(int value);
-    partial void OnamountChanged();
+    partial void OnidBrandChanging(int value);
+    partial void OnidBrandChanged();
+    partial void OnnameBrandChanging(string value);
+    partial void OnnameBrandChanged();
     #endregion
 		
-		public Cart()
+		public Brand()
 		{
-			this._Product = default(EntityRef<Product>);
-			this._User = default(EntityRef<User>);
+			this._Products = new EntitySet<Product>(new Action<Product>(this.attach_Products), new Action<Product>(this.detach_Products));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCart", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int idCart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idBrand", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idBrand
 		{
 			get
 			{
-				return this._idCart;
+				return this._idBrand;
 			}
 			set
 			{
-				if ((this._idCart != value))
+				if ((this._idBrand != value))
 				{
-					this.OnidCartChanging(value);
+					this.OnidBrandChanging(value);
 					this.SendPropertyChanging();
-					this._idCart = value;
-					this.SendPropertyChanged("idCart");
-					this.OnidCartChanged();
+					this._idBrand = value;
+					this.SendPropertyChanged("idBrand");
+					this.OnidBrandChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idUser", DbType="Int NOT NULL")]
-		public int idUser
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nameBrand", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string nameBrand
 		{
 			get
 			{
-				return this._idUser;
+				return this._nameBrand;
 			}
 			set
 			{
-				if ((this._idUser != value))
+				if ((this._nameBrand != value))
 				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidUserChanging(value);
+					this.OnnameBrandChanging(value);
 					this.SendPropertyChanging();
-					this._idUser = value;
-					this.SendPropertyChanged("idUser");
-					this.OnidUserChanged();
+					this._nameBrand = value;
+					this.SendPropertyChanged("nameBrand");
+					this.OnnameBrandChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idProduct", DbType="Int NOT NULL")]
-		public int idProduct
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Brand_Product", Storage="_Products", ThisKey="idBrand", OtherKey="idBrand")]
+		public EntitySet<Product> Products
 		{
 			get
 			{
-				return this._idProduct;
+				return this._Products;
 			}
 			set
 			{
-				if ((this._idProduct != value))
-				{
-					if (this._Product.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidProductChanging(value);
-					this.SendPropertyChanging();
-					this._idProduct = value;
-					this.SendPropertyChanged("idProduct");
-					this.OnidProductChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int NOT NULL")]
-		public int amount
-		{
-			get
-			{
-				return this._amount;
-			}
-			set
-			{
-				if ((this._amount != value))
-				{
-					this.OnamountChanging(value);
-					this.SendPropertyChanging();
-					this._amount = value;
-					this.SendPropertyChanged("amount");
-					this.OnamountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Cart", Storage="_Product", ThisKey="idProduct", OtherKey="idProduct", IsForeignKey=true)]
-		public Product Product
-		{
-			get
-			{
-				return this._Product.Entity;
-			}
-			set
-			{
-				Product previousValue = this._Product.Entity;
-				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Product.Entity = null;
-						previousValue.Carts.Remove(this);
-					}
-					this._Product.Entity = value;
-					if ((value != null))
-					{
-						value.Carts.Add(this);
-						this._idProduct = value.idProduct;
-					}
-					else
-					{
-						this._idProduct = default(int);
-					}
-					this.SendPropertyChanged("Product");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Cart", Storage="_User", ThisKey="idUser", OtherKey="idUser", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Carts.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Carts.Add(this);
-						this._idUser = value.idUser;
-					}
-					else
-					{
-						this._idUser = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
+				this._Products.Assign(value);
 			}
 		}
 		
@@ -340,6 +237,18 @@ namespace LeVaTiShop.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Products(Product entity)
+		{
+			this.SendPropertyChanging();
+			entity.Brand = this;
+		}
+		
+		private void detach_Products(Product entity)
+		{
+			this.SendPropertyChanging();
+			entity.Brand = null;
 		}
 	}
 	
@@ -876,6 +785,157 @@ namespace LeVaTiShop.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Message")]
+	public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idUser;
+		
+		private System.DateTime _date;
+		
+		private string _messageContent;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidUserChanging(int value);
+    partial void OnidUserChanged();
+    partial void OndateChanging(System.DateTime value);
+    partial void OndateChanged();
+    partial void OnmessageContentChanging(string value);
+    partial void OnmessageContentChanged();
+    #endregion
+		
+		public Message()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idUser", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int idUser
+		{
+			get
+			{
+				return this._idUser;
+			}
+			set
+			{
+				if ((this._idUser != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidUserChanging(value);
+					this.SendPropertyChanging();
+					this._idUser = value;
+					this.SendPropertyChanged("idUser");
+					this.OnidUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this.OndateChanging(value);
+					this.SendPropertyChanging();
+					this._date = value;
+					this.SendPropertyChanged("date");
+					this.OndateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageContent", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string messageContent
+		{
+			get
+			{
+				return this._messageContent;
+			}
+			set
+			{
+				if ((this._messageContent != value))
+				{
+					this.OnmessageContentChanging(value);
+					this.SendPropertyChanging();
+					this._messageContent = value;
+					this.SendPropertyChanged("messageContent");
+					this.OnmessageContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Message", Storage="_User", ThisKey="idUser", OtherKey="idUser", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Messages.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Messages.Add(this);
+						this._idUser = value.idUser;
+					}
+					else
+					{
+						this._idUser = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Products")]
 	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -894,11 +954,13 @@ namespace LeVaTiShop.Models
 		
 		private int _inventory;
 		
-		private string _brand;
+		private int _idBrand;
 		
 		private int _idCategory;
 		
 		private string _image;
+		
+		private string _specifications;
 		
 		private bool _isDiscounted;
 		
@@ -906,9 +968,9 @@ namespace LeVaTiShop.Models
 		
 		private bool _isDeleted;
 		
-		private EntitySet<Cart> _Carts;
-		
 		private EntitySet<DetailOrder> _DetailOrders;
+		
+		private EntityRef<Brand> _Brand;
 		
 		private EntityRef<Category> _Category;
 		
@@ -928,12 +990,14 @@ namespace LeVaTiShop.Models
     partial void OndiscountedPriceChanged();
     partial void OninventoryChanging(int value);
     partial void OninventoryChanged();
-    partial void OnbrandChanging(string value);
-    partial void OnbrandChanged();
+    partial void OnidBrandChanging(int value);
+    partial void OnidBrandChanged();
     partial void OnidCategoryChanging(int value);
     partial void OnidCategoryChanged();
     partial void OnimageChanging(string value);
     partial void OnimageChanged();
+    partial void OnspecificationsChanging(string value);
+    partial void OnspecificationsChanged();
     partial void OnisDiscountedChanging(bool value);
     partial void OnisDiscountedChanged();
     partial void OnisFeaturedChanging(bool value);
@@ -944,8 +1008,8 @@ namespace LeVaTiShop.Models
 		
 		public Product()
 		{
-			this._Carts = new EntitySet<Cart>(new Action<Cart>(this.attach_Carts), new Action<Cart>(this.detach_Carts));
 			this._DetailOrders = new EntitySet<DetailOrder>(new Action<DetailOrder>(this.attach_DetailOrders), new Action<DetailOrder>(this.detach_DetailOrders));
+			this._Brand = default(EntityRef<Brand>);
 			this._Category = default(EntityRef<Category>);
 			OnCreated();
 		}
@@ -1070,22 +1134,26 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_brand", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string brand
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idBrand", DbType="Int NOT NULL")]
+		public int idBrand
 		{
 			get
 			{
-				return this._brand;
+				return this._idBrand;
 			}
 			set
 			{
-				if ((this._brand != value))
+				if ((this._idBrand != value))
 				{
-					this.OnbrandChanging(value);
+					if (this._Brand.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidBrandChanging(value);
 					this.SendPropertyChanging();
-					this._brand = value;
-					this.SendPropertyChanged("brand");
-					this.OnbrandChanged();
+					this._idBrand = value;
+					this.SendPropertyChanged("idBrand");
+					this.OnidBrandChanged();
 				}
 			}
 		}
@@ -1130,6 +1198,26 @@ namespace LeVaTiShop.Models
 					this._image = value;
 					this.SendPropertyChanged("image");
 					this.OnimageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specifications", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string specifications
+		{
+			get
+			{
+				return this._specifications;
+			}
+			set
+			{
+				if ((this._specifications != value))
+				{
+					this.OnspecificationsChanging(value);
+					this.SendPropertyChanging();
+					this._specifications = value;
+					this.SendPropertyChanged("specifications");
+					this.OnspecificationsChanged();
 				}
 			}
 		}
@@ -1194,19 +1282,6 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Cart", Storage="_Carts", ThisKey="idProduct", OtherKey="idProduct")]
-		public EntitySet<Cart> Carts
-		{
-			get
-			{
-				return this._Carts;
-			}
-			set
-			{
-				this._Carts.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_DetailOrder", Storage="_DetailOrders", ThisKey="idProduct", OtherKey="idProduct")]
 		public EntitySet<DetailOrder> DetailOrders
 		{
@@ -1217,6 +1292,40 @@ namespace LeVaTiShop.Models
 			set
 			{
 				this._DetailOrders.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Brand_Product", Storage="_Brand", ThisKey="idBrand", OtherKey="idBrand", IsForeignKey=true)]
+		public Brand Brand
+		{
+			get
+			{
+				return this._Brand.Entity;
+			}
+			set
+			{
+				Brand previousValue = this._Brand.Entity;
+				if (((previousValue != value) 
+							|| (this._Brand.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Brand.Entity = null;
+						previousValue.Products.Remove(this);
+					}
+					this._Brand.Entity = value;
+					if ((value != null))
+					{
+						value.Products.Add(this);
+						this._idBrand = value.idBrand;
+					}
+					else
+					{
+						this._idBrand = default(int);
+					}
+					this.SendPropertyChanged("Brand");
+				}
 			}
 		}
 		
@@ -1274,18 +1383,6 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
-		private void attach_Carts(Cart entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_Carts(Cart entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-		
 		private void attach_DetailOrders(DetailOrder entity)
 		{
 			this.SendPropertyChanging();
@@ -1319,13 +1416,15 @@ namespace LeVaTiShop.Models
 		
 		private string _phone;
 		
+		private string _avatar;
+		
 		private bool _role;
 		
 		private bool _isDeleted;
 		
-		private EntitySet<Cart> _Carts;
-		
 		private EntitySet<Order> _Orders;
+		
+		private EntitySet<Message> _Messages;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1345,6 +1444,8 @@ namespace LeVaTiShop.Models
     partial void OnaddressChanged();
     partial void OnphoneChanging(string value);
     partial void OnphoneChanged();
+    partial void OnavatarChanging(string value);
+    partial void OnavatarChanged();
     partial void OnroleChanging(bool value);
     partial void OnroleChanged();
     partial void OnisDeletedChanging(bool value);
@@ -1353,8 +1454,8 @@ namespace LeVaTiShop.Models
 		
 		public User()
 		{
-			this._Carts = new EntitySet<Cart>(new Action<Cart>(this.attach_Carts), new Action<Cart>(this.detach_Carts));
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
+			this._Messages = new EntitySet<Message>(new Action<Message>(this.attach_Messages), new Action<Message>(this.detach_Messages));
 			OnCreated();
 		}
 		
@@ -1498,6 +1599,26 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_avatar", DbType="VarChar(20)")]
+		public string avatar
+		{
+			get
+			{
+				return this._avatar;
+			}
+			set
+			{
+				if ((this._avatar != value))
+				{
+					this.OnavatarChanging(value);
+					this.SendPropertyChanging();
+					this._avatar = value;
+					this.SendPropertyChanged("avatar");
+					this.OnavatarChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_role", DbType="Bit NOT NULL")]
 		public bool role
 		{
@@ -1538,19 +1659,6 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Cart", Storage="_Carts", ThisKey="idUser", OtherKey="idUser")]
-		public EntitySet<Cart> Carts
-		{
-			get
-			{
-				return this._Carts;
-			}
-			set
-			{
-				this._Carts.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Order", Storage="_Orders", ThisKey="idUser", OtherKey="idUser")]
 		public EntitySet<Order> Orders
 		{
@@ -1561,6 +1669,19 @@ namespace LeVaTiShop.Models
 			set
 			{
 				this._Orders.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Message", Storage="_Messages", ThisKey="idUser", OtherKey="idUser")]
+		public EntitySet<Message> Messages
+		{
+			get
+			{
+				return this._Messages;
+			}
+			set
+			{
+				this._Messages.Assign(value);
 			}
 		}
 		
@@ -1584,18 +1705,6 @@ namespace LeVaTiShop.Models
 			}
 		}
 		
-		private void attach_Carts(Cart entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_Carts(Cart entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
 		private void attach_Orders(Order entity)
 		{
 			this.SendPropertyChanging();
@@ -1603,6 +1712,18 @@ namespace LeVaTiShop.Models
 		}
 		
 		private void detach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Messages(Message entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;

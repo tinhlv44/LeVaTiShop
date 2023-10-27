@@ -1,0 +1,91 @@
+﻿@model List<LeVaTiShop.Models.DetailOrder>
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+}
+
+
+<div>
+    <div>
+        <div class="modal_body">
+            <div class="detail_oj_title">
+                <h5>Thông tin đơn hàng</h5>
+            </div>
+            <div class="detail_oj_content">
+
+                <div class="oj_content_list">
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.)*@ Tên khách hàng: </p>
+                        <p class="oj_content_p">@Model[0].Order.User.fullName</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.Order.state)*@Trạng thái đơn hàng: </p>
+                        <p class="oj_content_p">@Model[0].Order.state</p>
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.Order.dateOrder)*@Ngày đặt hàng: </p>
+                        <p class="oj_content_p">@Model[0].Order.dateOrder</p>
+                    </div>
+                    <!--<div class="oj_content_item">
+                        <p class="oj_content_label">-->
+                    @*@Html.DisplayNameFor(model => model.quantity)*@
+                    <!--</p>
+                        <p class="oj_content_p">@Model[0].quantity</p>
+                    </div>-->
+                    <table class="table_list w-100">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].idProduct)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].Product.nameProduct)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].Product.image)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].quantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].Product.price)
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                            @foreach (var i in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @i.idProduct
+                                    </td>
+                                    <td>
+                                        @i.Product.nameProduct
+                                    </td>
+                                    <td>
+                                        <img src="~/set/img/product/@i.Product.nameProduct/@(i.Product.image.Substring(1,6)+".jpg")" alt="Alternate Text" />
+                                        @*@i.Product.image*@
+                                    </td>
+                                    <td>
+                                        @i.quantity
+                                    </td>
+                                    <td>
+                                        @Html.FormatValue(i.Product.price, "{0:#,##0}") VNĐ
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="oj_footer">
+            <a class="btn btn_exit" href="@Url.Action("Index")">Quay lại</a>
+        </div>
+    </div>
+
+</div>
+

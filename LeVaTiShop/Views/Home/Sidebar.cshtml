@@ -1,0 +1,23 @@
+﻿<div class="coin">
+    <h3>MỨC GIÁ</h3>
+    <ul class="sub_menu1">
+        <li>
+            <a href="@Url.Action("Index", "Home")">Tất cả sản phẩm nổi bật</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=0, priceTo=5000000, nameBrand=LeVaTiShop.Controllers.HomeController.page})">Dưới 5 triệu</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=5000000, priceTo=10000000, nameBrand=LeVaTiShop.Controllers.HomeController.page})">Từ 5 - 10 triệu</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=10000000, priceTo=20000000, nameBrand=LeVaTiShop.Controllers.HomeController.page})">Từ 10 - 20 triệu</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=20000000, priceTo=30000000, nameBrand=LeVaTiShop.Controllers.HomeController.page})">Từ 20 - 30 triệu</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=30000000, priceTo=999000000, nameBrand=LeVaTiShop.Controllers.HomeController.page})">Trên 30 triệu</a>
+        </li>
+    </ul>
+</div>

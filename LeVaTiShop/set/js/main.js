@@ -1,5 +1,5 @@
 // check
-function check_tel(tel){
+function check_tel(tel) {
     var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
     return vnf_regex.test(tel.value);
 }
@@ -84,7 +84,7 @@ function check_tel(tel){
     presen_modal("Hiện tại chức năng đăng ký đang bảo trì.<br>Vui lòng đăng ký sau!");
     return true;
 }*/
-function presen_modal(content){
+function presen_modal(content) {
     var presen = document.getElementById("click_modal");
     presen.style.display = "flex";
     presen.innerHTML = "\
@@ -94,28 +94,31 @@ function presen_modal(content){
             <p class='modalbox_ct'></p>\
         </div>"
     document.getElementsByClassName("modalbox_ct")[0].innerHTML = content;
-    document.getElementsByClassName("modalbox_close")[0].onclick = function(){
+    document.getElementsByClassName("modalbox_close")[0].onclick = function () {
         presen.style.display = "none";
     }
-    window.onclick = function(event){
-        if (event.target == presen){
+    window.onclick = function (event) {
+        if (event.target == presen) {
             presen.style.display = "none";
         }
     }
 }
-function not_login(){
+function not_login() {
     presen_modal("Tín năng kết nối bằng mạng xã hội chưa khả dụng.<br>Vui lòng thử lại sau!");
 }
-function hiddenpass(){
+function hiddenpass() {
     var x = document.getElementById("relo_input_pass");
     var y = document.getElementById("relo_input_repass");
-    if (x.type === "password"){
+    var z = document.getElementById("relo_input_repass2");
+    if (x.type === "password") {
         x.type = "text";
         y.type = "text";
+        z.type = "text";
     }
-    else{
+    else {
         x.type = "password";
         y.type = "password";
+        z.type = "password";
     }
 }
 // slide show 
@@ -127,13 +130,13 @@ function currentSlide(n) {
 }
 function showSlides(n) {
     let slides = document.getElementsByClassName("myslide");
-    let slidelink = document.getElementsByClassName("slide_link");    
+    let slidelink = document.getElementsByClassName("slide_link");
     let dots = document.getElementsByClassName("demo");
     let index = document.getElementsByClassName("slide_idd");
-    if (n>=1 && n<=slides.length){        
+    if (n >= 1 && n <= slides.length) {
         let i;
-        if (n > slides.length) {slideIndex = n = 1}
-        if (n < 1) {slideIndex = n = slides.length}
+        if (n > slides.length) { slideIndex = n = 1 }
+        if (n < 1) { slideIndex = n = slides.length }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
@@ -141,112 +144,113 @@ function showSlides(n) {
             dots[i].className = dots[i].className.replace(" active", "");
             index[i].className = index[i].className.replace(" index_active", "");
         }
-    
-        if (n == 1){            
-            for (let i = n + 4; i<=slidelink.length; i++){
-                slidelink[i-1].style.display = "none";
-            }        
-        }
-        if (n >= 2 && n <= slidelink.length - 2){
-            for (i = 1; i < n; i++){
-                slidelink[i-1].style.display = "none";
-            }
-            for (i = n + 3; i <= slidelink.length; i++){
-                slidelink[i-1].style.display = "none";
-            }
-            for (i = n-1; i < n + 3; i++) {
-                slidelink[i-1].style.display = "block";
+
+        if (n == 1) {
+            for (let i = n + 4; i <= slidelink.length; i++) {
+                slidelink[i - 1].style.display = "none";
             }
         }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
-        index[slideIndex-1].className += " index_active";
+        if (n >= 2 && n <= slidelink.length - 2) {
+            for (i = 1; i < n; i++) {
+                slidelink[i - 1].style.display = "none";
+            }
+            for (i = n + 3; i <= slidelink.length; i++) {
+                slidelink[i - 1].style.display = "none";
+            }
+            for (i = n - 1; i < n + 3; i++) {
+                slidelink[i - 1].style.display = "block";
+            }
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        index[slideIndex - 1].className += " index_active";
     }
 }
 // see more
-function seemore(){
+function seemore() {
     let see = document.getElementById("seemore");
     let hide = document.getElementsByClassName("hide");
     see.style.display = "none";
-    for (let i=0; i<hide.length; i++){
+    for (let i = 0; i < hide.length; i++) {
         hide[i].style.display = "block";
     }
 }
 
-function hide(){
+function hide() {
     let see = document.getElementById("seemore");
     let hide = document.getElementsByClassName("hide");
     see.style.display = "block";
-    for (let i=0; i<hide.length; i++){
+    for (let i = 0; i < hide.length; i++) {
         hide[i].style.display = "none";
     }
 }
 // click seletion
-function seletion(ct, n, path){
-    var x = document.getElementsByClassName("proi_box"+ct);
-    if ("proi_box"+ct == "proi_boxcolor"){
+function selection(ct, n, path) {
+    /*element.style.border = "2px solid red";*/
+    var x = document.getElementsByClassName("proi_box" + ct);
+    if ("proi_box" + ct == "proi_boxcolor") {
         change(path);
     }
-    for (let i = 0; i<x.length; i++){
-        x[i].style.border = "1px solid var(--border--color)";  
+    for (let i = 0; i < x.length; i++) {
+        x[i].classList.remove('selectioned');
     }
-    x[n].style.border = "2px solid red";
+    x[n].classList.add('selectioned');
 }
 // change img
-function change(path){
+function change(path) {
     var y = document.getElementsByClassName("proinfor_cimg");
-    y[0].src = "~/set/img/product/" + path;
+    y[0].src = "/set/img/product/" + path;
 }
 // noti
-function not_buy(){
+function not_buy() {
     var x = document.getElementsByClassName("buy_in");
     var y = document.getElementsByClassName("notibuy");
-    for (var i=0; i<x.length; i++){
-        if (i!=2 && i!=4 && x[i].value==""){            
+    for (var i = 0; i < x.length; i++) {
+        if (i != 2 && i != 4 && x[i].value == "") {
             y[0].style.display = "block";
             x[i].focus();
             return false;
         }
     }
-    if (!check_tel(x[1])){
+    if (!check_tel(x[1])) {
         y[0].innerHTML = "Số điện thoại không hợp lệ!"
         y[0].style.display = "block";
         x[1].focus();
         return false;
-    } 
+    }
     y[0].style.display = "none";
     presen_modal("Bạn đã mua hàng thành công!<br>Hàng lúc nào về thì chúng tôi không biết!");
     return true;
 }
-function out_of_stock(){
+function out_of_stock() {
     presen_modal("Chưa có hàng bạn ơi!");
 }
-function not_promotion(){
+function not_promotion() {
     presen_modal("Hiện chưa có thông tin khuyến mãi.");
 }
-function go_home(){
+function go_home() {
     presen_modal("Vui lòng quay về trang chủ!");
 }
-function end_stock(){
+function end_stock() {
     presen_modal("Đã hết hàng.");
 }
 
 // hide product
-function hide_mb(){
+function hide_mb() {
     var mbstyle = document.getElementsByClassName("product_type");
-    for (let i=0; i<mbstyle.length; i++){
+    for (let i = 0; i < mbstyle.length; i++) {
         mbstyle[i].style.display = "none";
     }
 }
-function presen_type(type){
+function presen_type(type) {
     hide_mb();
     document.getElementById("type_" + type).style.display = "block";
 }
 
 // buy
-function buying_stock(){
+function buying_stock() {
     var presen = document.getElementById("click_modal");
-    presen.style.display  = "flex";
+    presen.style.display = "flex";
     presen.innerHTML = "\
             <div class='buying'>\
                 <ul class='buy_list'>\
@@ -275,23 +279,23 @@ function buying_stock(){
                 </ul>\
                 <span class='modalbox_close close_buy'>&times;</span>\
             </div>";
-    document.getElementsByClassName("modalbox_close")[0].onclick = function(){
+    document.getElementsByClassName("modalbox_close")[0].onclick = function () {
         presen.style.display = "none";
     }
-    window.onclick = function(event){
-        if (event.target == presen){
+    window.onclick = function (event) {
+        if (event.target == presen) {
             presen.style.display = "none";
         }
     }
 }
-function clear_stock(){
+function clear_stock() {
     var check = document.getElementsByClassName("not_check");
     var pcart = document.getElementsByClassName("pcart_list")[0];
     let i;
-    for (i=0; i<check.length; i++){
-        while (check[i].checked === true){
-            pcart.removeChild(document.getElementsByClassName("pcart_item")[i]);  
-            if (check[0] == undefined)  {        
+    for (i = 0; i < check.length; i++) {
+        while (check[i].checked === true) {
+            pcart.removeChild(document.getElementsByClassName("pcart_item")[i]);
+            if (check[0] == undefined) {
                 document.getElementsByClassName("pcart_hollow")[0].style.display = "flex";
                 document.getElementsByClassName("pcart_prot")[0].style.display = "none";
                 document.getElementById("cart_icon").style.display = "none";
@@ -303,15 +307,15 @@ function clear_stock(){
 
 // add_cart
 cnt = 0;
-function add_cart(n){
+function add_cart(n) {
     document.getElementsByClassName("pcart_hollow")[0].style.display = "none";
     document.getElementsByClassName("pcart_prot")[0].style.display = "flex";
     document.getElementById("cart_icon").style.display = "block";
     var cart = document.getElementById("cart");
     cart.innerHTML = cart.innerHTML + "<li class='pcart_item'>\
                                             <div class='pcart_checkbox'>\
-                                                <label for='c"+cnt+"' class='checkbox_box'>\
-                                                    <input type='checkbox' class='not_check' id='c"+cnt+"'>\
+                                                <label for='c"+ cnt + "' class='checkbox_box'>\
+                                                    <input type='checkbox' class='not_check' id='c"+ cnt + "'>\
                                                     <i class='checkboxic fa-solid fa-check' ></i>\
                                                 </label>\
                                             </div>\
@@ -327,7 +331,7 @@ function add_cart(n){
                                         </li>   ";
     document.getElementById("cimg").src = document.getElementsByClassName("prot_img")[n].src;
     document.getElementById("cname").innerHTML = document.getElementsByClassName("prot_heading")[n].innerHTML;
-    document.getElementById("cpre").innerHTML = document.getElementsByClassName("coinpre")[n].innerHTML;                               
+    document.getElementById("cpre").innerHTML = document.getElementsByClassName("coinpre")[n].innerHTML;
     document.getElementById("cpast").innerHTML = document.getElementsByClassName("coinpast")[n].innerHTML;
     document.getElementById("cimg").id = '';
     document.getElementById("cname").id = '';
@@ -335,15 +339,15 @@ function add_cart(n){
     document.getElementById("cpast").id = '';
     cnt += 1;
 }
-function add_cart2(){
+function add_cart2() {
     document.getElementsByClassName("pcart_hollow")[0].style.display = "none";
     document.getElementsByClassName("pcart_prot")[0].style.display = "flex";
     document.getElementById("cart_icon").style.display = "block";
     var cart = document.getElementById("cart");
     cart.innerHTML = cart.innerHTML + "<li class='pcart_item'>\
                                             <div class='pcart_checkbox'>\
-                                                <label for='c"+cnt+"' class='checkbox_box'>\
-                                                    <input type='checkbox' class='not_check' id='c"+cnt+"'>\
+                                                <label for='c"+ cnt + "' class='checkbox_box'>\
+                                                    <input type='checkbox' class='not_check' id='c"+ cnt + "'>\
                                                     <i class='checkboxic fa-solid fa-check' ></i>\
                                                 </label>\
                                             </div>\
@@ -359,11 +363,105 @@ function add_cart2(){
                                         </li>   ";
     document.getElementById("cimg").src = document.getElementsByClassName("proinfor_cimg")[0].src;
     document.getElementById("cname").innerHTML = document.getElementsByClassName("proinfor_heading")[0].innerHTML;
-    document.getElementById("cpre").innerHTML = document.getElementsByClassName("coinpre")[0].innerHTML;                               
+    document.getElementById("cpre").innerHTML = document.getElementsByClassName("coinpre")[0].innerHTML;
     document.getElementById("cpast").innerHTML = document.getElementsByClassName("coinpast")[0].innerHTML;
     document.getElementById("cimg").id = '';
     document.getElementById("cname").id = '';
     document.getElementById("cpre").id = '';
     document.getElementById("cpast").id = '';
     cnt += 1;
+}
+
+
+//listdown
+function showAndActive(id) {
+    var check = document.getElementById(id);
+    if (check.style.display == "block") {
+        check.style.display = "none";
+        document.getElementsByClassName("dropdown")[0].remove.add("chooseLogin");
+    }
+    else {
+        check.style.display = "block";
+        document.getElementsByClassName("dropdown")[0].classList.add("chooseLogin");
+    }
+}
+/*function showAndHide(id) {
+    show(id);
+    document.addEventListener("click", hideDiv);
+}
+
+
+function hideDiv(event) {
+    var div = document.getElementById("myDropdown");
+    var target = event.target;
+    if (target !== div && !div.contains(target)) {
+        div.style.display = "none";
+        document.removeEventListener("click", hideDiv);
+    }
+}*/
+
+function show(id) {
+    var check = document.getElementById(id);
+    if (check.style.display == "block") {
+        check.style.display = "none";
+    }
+    else {
+        check.style.display = "block";
+    }
+}
+
+
+
+
+//time
+function displayCurrentTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var dayOfWeek = now.toLocaleDateString('vi-VN', { weekday: 'long' });
+    var date = now.toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Định dạng giờ, phút, giây thành chuỗi có độ dài 2 và thêm '0' nếu cần
+    hours = addLeadingZero(hours);
+    minutes = addLeadingZero(minutes);
+    seconds = addLeadingZero(seconds);
+
+    // Hiển thị giờ, phút, giây, thứ và ngày hiện tại trong một phần tử HTML với id="current-time"
+    var currentTime = hours + ":" + minutes + ":" + seconds + " - " + dayOfWeek + ", " + date;
+    document.getElementById("date").innerHTML = currentTime;
+}
+
+function addLeadingZero(number) {
+    return (number < 10 ? "0" : "") + number;
+}
+
+
+//intput số định nghĩa hàng nghìn
+
+
+//hàm thêm ảnh sản phẩm
+function displayImages(input) {
+    var imageContainer = document.getElementById("imageContainer");
+    imageContainer.innerHTML = "";
+
+    if (input.files && input.files.length > 0) {
+        for (var i = 0; i < input.files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imgElement = document.createElement("img");
+                imgElement.src = e.target.result;
+                imgElement.alt = "Uploaded Image";
+                imgElement.style.maxWidth = "200px";
+                imgElement.style.maxHeight = "200px";
+                imageContainer.appendChild(imgElement);
+
+                var colorInput = document.createElement("input");
+                colorInput.type = "color";
+                colorInput.name = "colors";
+                imageContainer.appendChild(colorInput);
+            }
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
 }

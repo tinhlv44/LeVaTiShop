@@ -1,0 +1,88 @@
+﻿@model LeVaTiShop.Models.User
+
+@{
+    ViewBag.Title = "Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="boxContent">
+    <form class="relo_container" id="changePasswordForm" action="@Url.Action("Profile", "Login")" method="post" enctype="multipart/form-data">
+        <div class="input-container">
+            <h3 style="text-align: center; font-size: 24px;">Thông tin tài khoản</h3>
+        </div>
+        <div class="input-container input_avatar">
+            @if (Model.avatar == null)
+            {
+                <img class="rounded-circle border" src="~/set/img/user/default.jpg" title="Avatar @Model.nameUser" />
+            }
+            else
+            {
+                <img class="fa-circle" src="~/set/img/user/@Model.avatar" title="Avatar @Model.nameUser" />
+            }
+
+            <label for="fileInput" class="btn btn_submit">
+                Đổi ảnh
+            </label>
+            <input type="file" name="image" id="fileInput" accept="image/*" style="display:none;" />
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.nameUser): </strong>
+                <input type="text" name="nameUser" value="@Html.DisplayFor(model => model.nameUser)" class="form-control" disabled />
+            </p>
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.password): </strong>
+                <input type="password" name="password" value="........" class="form-control" disabled />
+            </p>
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.email): </strong>
+                <input type="text" name="email" value="@Html.DisplayFor(model => model.email)" class="form-control" />
+            </p>
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.fullName): </strong>
+                <input type="text" name="fullName" value="@Html.DisplayFor(model => model.fullName)" class="form-control" />
+            </p>
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.address): </strong>
+                <input type="text" name="address" value="@Html.DisplayFor(model => model.address)" class="form-control" />
+            </p>
+        </div>
+        <div class="input-container">
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.phone): </strong>
+                <input type="text" name="phone" value="@Html.DisplayFor(model => model.phone)" class="form-control" />
+            </p>
+        </div>
+        <div class="input-container input_avatar">
+            <button type="submit" class="btn btn_submit relo_btnr">Cập nhật</button>
+            <a href="@Url.Action("Index", "Home")" class="btn btn_submit relo_btnr">Trở lại</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const label = document.querySelector('label[for="fileInput"]');
+
+    label.addEventListener('click', function () {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function () {
+        if (fileInput.files.length > 0) {
+            // Xử lý tệp được chọn ở đây (ví dụ: hiển thị tên tệp)
+            console.log(fileInput.files[0].name);
+        }
+    });
+</script>
+
+

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<LeVaTiShop.Models.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content_title">
+    <b class="content_title_ct">Danh sách đơn hàng</b>
+    <div class="content_title_time"><span id="date"></span></div>
+</div>
+<div class="content_main">
+    <div class="content_titleList" style="justify-content: flex-end;">
+        <div class="searchBar_admin">
+            <form action="/" method="post" class="searchBar_admin">
+                <label for="searchInput">Tìm kiếm:</label>
+                <input type="search" id="searchInput" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
+                <button type="submit" class="btn btn_search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="content_list">
+        @if (Model == null)
+        {
+            <div>
+                <div class="pcart_hollow">
+                    <i class="icon_sad fa-solid fa-face-frown"></i>
+                    <div class="pcart_hollowct">Không tìm thấy kết quả</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table_list">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.idOrder)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.User.fullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dateOrder)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.state)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.isPay)
+                        </th>
+                        <th class="th_btn">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>
+                                @i.idOrder
+                            </td>
+                            <td>
+                                @i.User.fullName
+                            </td>
+                            <td>
+                                @i.dateOrder
+                            </td>
+                            <td>
+                                <div>
+                                    @*@i.state*@
+                                    Đang giao
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="name" @(i.isPay ? "checked" : "") disabled/>
+                            </td>
+                            <td class="td_btn">
+                                <a href="@Url.Action("DetailOrder","Order", new {id = i.idOrder})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        @*<tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                Bình
+                            </td>
+                            <td>
+                                22/03/2023
+                            </td>
+                            <td>
+                                <div>
+                                    Đã giao hàng
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="name" value="" checked />
+
+                            <td class="td_btn">
+                                <a href="@Url.Action("ProductDetail","Product", new {id = Model})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Gia Truyền
+                            </td>
+                            <td>
+                                10/10//2023
+                            </td>
+                            <td>
+                                <div>
+                                    Đang giao hàng
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="name" value="" checked />
+
+                            <td class="td_btn">
+                                <a href="@Url.Action("ProductDetail","Product", new {id = Model})" class="btn btn_detail" type="button" title="Thông tin chi tiết">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                Bình
+                            </td>
+                            <td>
+                                14/10/2023
+                            </td>
+                            <td>
+                                <div>
+                                    Chờ xác nhận
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="name" value="" checked />
+
+                            <td class="td_btn">
+                                <a href="@Url.Action("ProductDetail","Product", new { id = Model })" class="btn btn_detail" type="button" title="Thông tin chi tiết">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                            </td>
+                        </tr>*@
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script>
+    // Cập nhật giờ hiện tại mỗi giây
+    setInterval(displayCurrentTime, 1000);
+</script>

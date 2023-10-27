@@ -19,18 +19,26 @@
 }
 ul{
     list-style: none;
+    padding-left: 0;
 }
 a{
     text-decoration: none;
     color: black;
 }
+a:hover{
+    color: var(--w--color);
+}
 @import url('https://fonts.googleapis.com/css2?family=Roboto');
-html{
-    font-family: 'Roboto', Arial;/*sans-serif;*/
+body {
+    font-family: 'Roboto', Arial; /*sans-serif;*/
     box-sizing: border-box;
 }
-.web{
-    min-width: 1300px;   
+.web {
+    min-width: 1300px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 .grid{
     width: 1200px;
@@ -76,7 +84,7 @@ html{
     z-index: 1;
 }
 /* button style */
-.btn{
+.btn {
     height: 36px;
     background-color: rgb(230, 230, 230);
     text-decoration: none;
@@ -86,12 +94,12 @@ html{
     font-size: 16px;
     padding: 0;
     cursor: pointer;
-    margin: 0 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
-.btn:hover{
+.btn:hover, btn:hover button{
     background-color: var(--border--color);
 }
 .btn.btn_green{
@@ -185,4 +193,44 @@ html{
 }
 .modalbox_close:hover{
 	color: red;
+}
+
+
+
+
+/*shadow*/
+.content_main, .content_title {
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+.boxContent {
+    width:36%;
+    padding: 16px 8px;
+    margin: 28px 0;
+}
+.boxContent img {
+    height: 100px;
+}
+.proinfor, .boxContent, .info_detail {
+    border-radius: 6px;
+    box-shadow: 1px 1px 6px -1px var(--shadow--color);
+    border: 1px solid #e0e0e0;
+}
+
+
+
+#imageContainer {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+#imageContainer img{
+    margin:16px;
+}
+
+.set_center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

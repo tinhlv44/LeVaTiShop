@@ -24,7 +24,7 @@
                     </p>
                 </div>
                 <div class="input-container">
-                    <input type="text" class="relo_input" name="nameUser" required="">
+                    <input type="text" class="relo_input" name="nameUser" pattern="[a-zA-Z0-9]+" required="">
                     <label class="relo_label">Tên đăng nhập</label>
                 </div>
                 <div class="relo_err">
@@ -33,7 +33,7 @@
                     </p>
                 </div>
                 <div class="input-container">
-                    <input type="password" class="relo_input" name="password" required="">
+                    <input type="password" class="relo_input" name="password" pattern="[a-zA-Z0-9]+" required="" id="relo_input_pass">
                     <label class="relo_label">Mật khẩu</label>
                 </div>
                 <div class="relo_hidden">
@@ -48,12 +48,10 @@
                 </div>
             </div>
             <div class="relo_btn">
-                <a href="@Url.Action("Index", "Home")">
-                    <button type="button" class="relo_btnl btn">TRỞ LẠI</button>
+                <a href="@Url.Action("Index", "Home")" class="relo_btnl btn">
+                    <p type="button" >TRỞ LẠI</p>
                 </a>
-                <a href="#">
-                    <button class="btn relo_btnr">ĐĂNG NHẬP</button>
-                </a>
+                <button class="btn relo_btnr">ĐĂNG NHẬP</button>
                 <input type="hidden" value="@ViewBag.url" name="url" />
             </div>
         </form>

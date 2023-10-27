@@ -1,0 +1,14 @@
+﻿@using LeVaTiShop.Models
+@{
+    User u = (User)Session["User"];
+}
+
+<header class="header_admin">
+    <div class="header_admin_user">
+        <span style="font-size:30px;cursor:pointer" onclick="show('sidebar')">&#9776;</span>
+        <p class="header_admin_ct">Xin chào, @u.fullName</p>
+    </div>
+    <a href="/Home/Index" class="header_admin_quit">
+        <i class="fa-solid fa-circle-right"></i>
+    </a>
+</header>
