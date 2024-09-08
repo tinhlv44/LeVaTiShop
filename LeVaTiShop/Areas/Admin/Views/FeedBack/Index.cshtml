@@ -1,0 +1,148 @@
+﻿@using LeVaTiShop.Models
+@model IEnumerable<Message>
+@{
+    ViewBag.Title = "Quản lý phản hồi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    function f = new function();
+}
+
+<div class="content_title">
+    <b class="content_title_ct">Danh sách phản hồi</b>
+    <div class="content_title_time"><span id="date"></span></div>
+</div>
+<div class="content_main">
+    <div class="content_titleList" style="justify-content: flex-end;">
+        <div class="searchBar_admin">
+            <form action="@Url.Action("Index", "FeedBack")" method="post" class="searchBar_admin">
+                <label for="searchInput">Tìm kiếm:</label>
+                <input type="search" id="searchInput" name="key" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
+                <button type="submit" class="btn btn_search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="content_list">
+        @if (Model == null || !Model.Any())
+        {
+            <div>
+                <div class="pcart_hollow">
+                    <i class="icon_sad fa-solid fa-face-frown"></i>
+                    <div class="pcart_hollowct">Không tìm thấy kết quả</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table_list">
+                <thead>
+                    <tr>
+                        <th>
+                            Họ và tên
+                        </th>
+                        <th>
+                            Ngày gửi
+                        </th>
+                        <th>
+                            Nội dung
+                        </th>
+                        <th class="th_btn">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (i.idUser == 0)
+                                {
+                                    <p>Khách</p>
+                                }
+                                else
+                                {
+
+                                    @i.User.fullName
+                                }
+                            </td>
+                            <td>
+                                @i.date
+                            </td>
+                            <td>
+                                @f.takeMessage(i.messageContent)
+                            </td>
+                            <td class="td_btn">
+                                <button id="sendMail" class="btn btn_min btn_detail @(i.messageContent[0] == 'R' ? "sendmailed" : "")" type="button" name="@(i.messageContent[0] == 'R' ? "sendmailed" : "sendmail")" title="Gửi thư" data-mail-id="@i.idUser" data-mail-date="@i.date" @*@(i.messageContent[0] == 'R' ? "disabled" : "")*@>
+                                    <i class="fa-regular fa-envelope"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+    </div>
+</div>
+
+@section scripts{
+<script>
+    // Cập nhật giờ hiện tại mỗi giây
+    setInterval(displayCurrentTime, 1000);
+
+    var idUser;
+    var date;
+    $(document).on('click', "button[name='sendmailed']", function () {
+        toastr.error('Đã phản hồi');
+    })
+    $(document).on('click', "button[name='sendmail']", function () {
+        idUser = $(this).data('mail-id');
+        date = $(this).data('mail-date');
+        $('#modalbox_heading').text('Gửi email phản hồi');
+        document.getElementById('modalbox_ct').innerHTML =
+            '<div>\
+                <label for="subject">Chủ đề:</label>\
+                <input type="text" id="subject" class="form-control" value="Phản hồi từ H&T Shop" />\
+            </div>\
+            <div>\
+                <label for="body">Nội dung:</label>\
+                <textarea id="body" class="form-control"></textarea>\
+            </div>';
+        $('#btnDelete').show();
+        $('#btnCancel').show();
+        $('#modal_admin').show();
+        hide_Model("modal_admin");
+    })
+
+    $('#btnDelete').click(function () {
+        var subject = document.getElementById('subject').value;
+        var body = document.getElementById('body').value;
+        $.ajax({
+            url: '/Admin/FeedBack/SendMail',
+            type: 'post',
+            data: {
+                idUser: idUser,
+                subject: subject,
+                body: body,
+                date: date
+            },
+            //contentType: 'application/json',
+            success: function (data) {
+                if (data.code) {
+                    toastr.success(data.msg + '<br>Tải lại trang sau 2 giây.');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    toastr.error(data.msg);
+                }
+
+                $('#modal_admin').hide();
+            }
+        });
+    })
+</script>
+   }
+
+

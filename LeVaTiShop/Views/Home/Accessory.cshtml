@@ -1,20 +1,26 @@
 ﻿@using LeVaTiShop.Models;
-@model List<Product>
+
+@using PagedList.Mvc;
+@model PagedList.PagedList<Product>
+
+
 @{
-    ViewBag.Title = "H&T Shop";
+    ViewBag.Title = (LeVaTiShop.Controllers.HomeController.page == "chu" ? "Trang chủ" : LeVaTiShop.Controllers.HomeController.page) + " - H&T Shop";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
     function f = new function();
     List<List<string>> sColor = new List<List<string>>();
     List<List<string>> sImage = new List<List<string>>();
+    List<List<string>> amount = new List<List<string>>();
     List<decimal> disPrice = new List<decimal>();
     //disPrice.Add(0);
 
-    for (int i = 0; i < Model.Count(); i++)
+    for (int i = 0; i < Model.Count; i++)
     {
         List<string> sC = new List<string>();
         List<string> sI = new List<string>();
+        List<string> a = new List<string>();
         f.analysisImage(Model[i].image, out sC, out sI);
         sColor.Add(sC);
         sImage.Add(sI);
@@ -22,7 +28,10 @@
         {
             disPrice.Add(Model[i].discountedPrice.Value);
         }
+        f.amountProduct(Model[i].inventory, out a);
+        amount.Add(a);
     }
+
 }
 @section SlideShow{
     <div>
@@ -40,7 +49,7 @@
                     <h3 class="product_headingct">Sản phẩm bán chạy</h3>
                 </div>
                 <div class="prot">
-                    @for (int pro = 0; pro < Model.Count; pro++)
+                    @for (int pro = 0; pro < Model.Count(); pro++)
                     {
                         <div class="w-25">
                             <div class="prot_frame">
@@ -61,10 +70,14 @@
                                     }
                                 </div>
                                 <div class="prot_btn">
-                                    <button class="prot_pay btn btn_green" onclick="end_stock()">Đặt hàng ngay</button>
-                                    <a href="@Url.Action("AddToCart", "Cart", new { id = Model[pro].idProduct, img= sImage[pro][0], price = Model[pro].discountedPrice, capacity="64 GB"})" class="prot_cart" onclick="add_cart(@(pro+1))">
+                                    @{
+                                        string href = amount[pro][0] != "0" ? Url.Action("FastCheckout", "Cart", new { id = Model[pro].idProduct, img = sImage[pro][0], price = Model[pro].isDiscounted ? Model[pro].discountedPrice : Model[pro].price }) : "#";
+                                        string onclick = amount[pro][0] != "0" ? "" : "end_stock()";
+                                    }
+                                    <a class="prot_pay btn btn_green" href="@href" onclick="@onclick">Đặt hàng ngay</a>
+                                    <button class="prot_cart" data-product-id="@Model[pro].idProduct" data-product-price="@(Model[pro].isDiscounted ? Model[pro].discountedPrice : Model[pro].price)" data-product-image="@sImage[pro][0]">
                                         <i class="icon_cart_pro fa-solid fa-cart-shopping"></i>
-                                    </a>
+                                    </button>
                                 </div>
                                 @if (Model[pro].isDiscounted)
                                 {
@@ -76,27 +89,43 @@
                 </div>
             </div>
         </div>
+        Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+        <div class="menuPage">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { pa = page }))
+        </div>
     </div>
 </div>
 
-
 <script>
-    // Lưu giá trị cuộn của trang vào cookie khi người dùng cuộn trang
-    window.addEventListener('scroll', function () {
-        document.cookie = "scrollPosition=" + window.pageYOffset + "; path=/";
+
+    $(document).ready(function () {
+        $('.prot_cart').on('click', function () {
+            var productId = $(this).data('product-id');
+            var productPrice = $(this).data('product-price');
+            var productImage = $(this).data('product-image');
+
+            // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Cart")',
+                method: 'POST',
+                data: {
+                    id: productId,
+                    img: productImage,
+                    price: productPrice
+                },
+                success: function (response) {
+                    if (response.code) {
+                        showId('cart_icon');
+                        toastr.success(response.msg);
+                    } else {
+                        toastr.error(response.msg);
+                    }
+                },
+                error: function () {
+                    // Xử lý lỗi yêu cầu Ajax (nếu có)
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                }
+            });
+        });
     });
-
-    // Khôi phục giá trị cuộn của trang sau khi tải lại
-    window.onload = function () {
-        var scrollPosition = getCookie("scrollPosition");
-        if (scrollPosition) {
-            window.scrollTo(0, parseInt(scrollPosition));
-        }
-    };
-
-    // Hàm để lấy giá trị của cookie
-    function getCookie(name) {
-        var value = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return value ? value.pop() : '';
-    }
 </script>

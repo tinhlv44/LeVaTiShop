@@ -1,17 +1,26 @@
 ﻿@model IEnumerable<LeVaTiShop.Models.CartItem>
 
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
 }
 
+<div class="w-100 p-4">
+    <ul class="cps_list">
+        <li class="cps_item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li class="cps_ic">❯</li>
+        <li class="cps_item">Giỏ hàng</li>
+    </ul>
+</div>
 <h2>Giỏ Hàng</h2>
-@if (Model == null)
+@if (Model == null || !Model.Any())
 {
     <div class="cart_empty">
         <div class="pcart_hollow">
             <i class="icon_sad fa-solid fa-face-frown"></i>
-            <div class="pcart_hollowct">Không tìm thấy kết quả</div>
+            <div class="pcart_hollowct">Giỏ hàng trống</div>
         </div>
     </div>
 }
@@ -20,19 +29,19 @@ else
     <table class="table table_cart">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nameProduct)
+                Tên sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.image)
+                Ảnh bìa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.price)
+                Giá bán
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.quantity)
+                Số lượng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
+                Thành tiền
             </th>
             <th></th>
         </tr>
@@ -41,49 +50,42 @@ else
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.nameProduct)
+                    @item.nameProduct
                 </td>
 
                 <td>
                     <img src="~/set/img/product/@item.nameProduct/@item.image" alt="@item.nameProduct" />
                 </td>
-
-                @*@using (Html.BeginForm("UpdateQuantity", "Cart", new {id=item.ID}))
-                {*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.price)
-                    </td>
-                    <td>
-                        <input type="number" name="newQuantity" value="@item.quantity" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("DetailProduct", "Home", new { id = item.ID })" class="btn btn_min btn_detail" title="Cập nhật số lượng">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </a>
-                        <button  class="btn btn_min btn_edit" title="Cập nhật số lượng" onchange="updateQuantity(@item.ID, this.value)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <a href="@Url.Action("Delete", "Cart", new { id = item.ID })" class="btn btn_min btn_trash">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
-               @* }*@
+                <td>
+                    @item.price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+                </td>
+                <td>
+                    <input class="form-control" type="number" name="newQuantity" min="1" max="@f.getProduct(item.ID).inventory" value="@item.quantity" onchange="updateQuantity(@item.ID, this.value)" />
+                </td>
+                <td>
+                    @item.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+                </td>
+                <td>
+                    <a href="@Url.Action("DetailProduct", "Home", new { id = item.ID })" class="btn btn_min btn_detail" title="Chi tiết sản phẩm">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                    <a href="@Url.Action("Delete", "Cart", new { id = item.ID })" class="btn btn_min btn_trash" title="Xóa sản phẩm">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
             </tr>
         }
 
     </table>
-    <div>
-        <a href="@Url.Action("ClearCart", "Cart")" class="btn relo_btnr">
+    <div class="d-flex">
+        <a href="@Url.Action("ClearCart", "Cart")" class="btn relo_btnl">
             Xóa hết sản phẩm
         </a>
-        <a href="@Url.Action("", "Cart")" class="btn relo_btnr">
-            Thanh Toán
+        <a href="@Url.Action("Checkout", "Cart")" class="btn relo_btnr">
+            Mua hàng
         </a>
     </div>
-    
+
 }
 
 <script>

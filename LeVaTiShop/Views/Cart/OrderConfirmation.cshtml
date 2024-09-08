@@ -1,0 +1,13 @@
+﻿@model IEnumerable<LeVaTiShop.Models.Order>
+
+@{
+    ViewBag.Title = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="w-100 p-4">
+    <ul class="cps_list">
+        <li class="cps_item"><a href="@Url.Action("Index", "Home")">Quay lại trang chủ</a></li>
+    </ul>
+</div>
+<h3 class="text-center">Đặt hàng thành công.<br /> Chúng tôi đã ghi nhận đơn đặt hàng của bạn.<br />Bạn sẽ nhận thông tin sớm nhất từ chúng tôi qua email.</h3>
+

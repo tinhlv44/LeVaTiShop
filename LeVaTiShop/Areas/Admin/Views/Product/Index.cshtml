@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<LeVaTiShop.Models.Product>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="content_list">
-        @if (Model == null)
+        @if (Model == null || !Model.Any())
         {
             <div>
                 <div class="pcart_hollow">
@@ -42,28 +42,28 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.idProduct)
+                            Mã sản phẩm
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.nameProduct)
+                            Tên sản phẩm
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.image)
+                            Ảnh bìa
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.inventory)
+                            Tồn kho
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.price)
+                            Giá bán
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.discountedPrice)
+                            Giá bán giảm giá
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.idBrand)
+                            Tên thương hiệu
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Category.name)
+                            Danh mục
                         </th>
                         <th class="th_btn">
 
@@ -90,7 +90,15 @@
                                 <img src="~/set/img/product/@i.nameProduct/@img[0]" alt="Alternate Text" style=" object-fit: cover;" />
                             </td>
                             <td>
-                                @i.inventory
+                                @{
+                                    f.amountProduct(i.inventory, out List<string> amount);
+                                    int amountTrue = 0;
+                                    for (int id = 0; id < amount.Count; id++)
+                                    {
+                                        amountTrue += int.Parse(amount[id]);
+                                    }
+                                }
+                                @amountTrue
                             </td>
                             <td>
                                 @i.price
@@ -99,7 +107,7 @@
                                 @i.discountedPrice
                             </td>
                             <td>
-                                @i.idBrand
+                                @i.Brand.nameBrand
                             </td>
                             <td>
                                 @i.Category.name
@@ -112,7 +120,7 @@
                                 <a href="@Url.Action("EditProduct","Product", new {id=i.idProduct})" class="btn btn_min btn_edit" type="button" title="Sửa">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button class="btn btn_min btn_trash" type="button" title="Xóa" onclick="myFunction(this)">
+                                <button class="btn btn_min btn_trash" type="button" title="Xóa" name="delete" id="@i.idProduct">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -123,7 +131,44 @@
         }
     </div>
 </div>
-<script>
-    // Cập nhật giờ hiện tại mỗi giây
-    setInterval(displayCurrentTime, 1000);
-</script>
+
+@section scripts{
+    <script>
+        // Cập nhật giờ hiện tại mỗi giây
+        setInterval(displayCurrentTime, 1000);
+
+        var idToDelete;
+        $(document).on('click', "button[name='delete']", function () {
+            idToDelete = $(this).attr('id');
+            $('#modalbox_heading').text('Cảnh báo');
+            $('#modalbox_ct').text('Bạn có chắc chắn muốn xóa sản phẩm này?');
+            $('#btnDelete').show();
+            $('#btnCancel').show();
+            $('#modal_admin').show();
+
+            hide_Model("modal_admin");
+        })
+
+        $('#btnDelete').click(function () {
+            $.ajax({
+                url: '/Admin/Product/DeleteProduct',
+                type: 'post',
+                data: {
+                    id: idToDelete
+                },
+                success: function (data) {
+                    if (data.code) {
+                        toastr.success(data.msg + '<br>Tải lại trang sau 2 giây.');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                    $('#modal_admin').hide();
+                }
+            });
+        })
+    </script>
+    }
+

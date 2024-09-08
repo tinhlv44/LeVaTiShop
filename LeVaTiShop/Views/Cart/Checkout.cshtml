@@ -1,0 +1,90 @@
+﻿@model IEnumerable<LeVaTiShop.Models.CartItem>
+
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LeVaTiShop.Models.User u = (LeVaTiShop.Models.User)Session["User"];    
+}
+
+<h2>Thanh toán</h2>
+<table class="table table_cart">
+    <tr>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Ảnh bìa
+        </th>
+        <th>
+            Giá bán
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Thành tiền
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.nameProduct
+            </td>
+
+            <td>
+                <img src="~/set/img/product/@item.nameProduct/@item.image" alt="@item.nameProduct" />
+            </td>
+            <td>
+                @item.price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+            </td>
+            <td>
+                @item.quantity
+            </td>
+            <td>
+                @item.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+            </td>
+        </tr>
+    }
+
+</table>
+<h2>Xác nhận thông tin khách hàng</h2>
+<div class="infor_user">
+    <div class="oj_content_item">
+        <label class="oj_content_label">Họ và tên</label>
+        <input type="text" value="@u.fullName" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Email</label>
+        <input type="text" value="@u.email" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Địa chỉ giao hàng</label>
+        <input type="text" value="@u.address" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Số điện thoại</label>
+        <input type="text" value="@u.phone" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Phí vận chuyển</label>
+        <input type="text" value="0 VNĐ" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Tổng tiền phải thanh toán</label>
+        <input type="text" value="@ViewBag.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ" class="form-control" disabled />
+    </div>
+</div>
+
+<div class="d-flex">
+    <a href="@Url.Action("Cart", "Cart")" class="btn relo_btnl">
+        Quay lại giỏ hàng
+    </a>
+    <a href="@Url.Action("OrderConfirmation", "Cart")" class="btn relo_btnr">
+        Thanh Toán tiền mặt
+    </a>
+    <a href="@Url.Action("ProcessPayment", "Cart")" class="btn relo_btnr">
+        Thanh Toán Online
+    </a>
+</div>

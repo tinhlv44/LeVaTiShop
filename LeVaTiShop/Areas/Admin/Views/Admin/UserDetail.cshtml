@@ -1,6 +1,6 @@
 ﻿@model LeVaTiShop.Models.User
 @{
-    ViewBag.Title = "UserDetail";
+    ViewBag.Title = "Chi tiết tài khoản";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,7 +13,7 @@
         }
         else
         {
-            <img src="~/set/img/user/@(Model.avatar+".jpg")" title="Avatar @Model.nameUser" />
+            <img src="~/set/img/user/@Model.avatar" title="Avatar @Model.nameUser" />
         }
     </div>
     <div>
@@ -25,42 +25,42 @@
 
                 <div class="oj_content_list">
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.idUser)</p>
+                        <p class="oj_content_label">Mã tài khoản</p>
                         <p class="oj_content_p">@Model.idUser</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.nameUser)</p>
+                        <p class="oj_content_label">Tên đăng nhập</p>
                         <p class="oj_content_p">@Model.nameUser</p>
                     </div>
-                    <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.password)</p>
+                    @*<div class="oj_content_item">
+                        <p class="oj_content_label">Mật khẩu</p>
                         <p class="oj_content_p">........</p>
-                    </div>
+                    </div>*@
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.fullName)</p>
+                        <p class="oj_content_label">Họ và tên</p>
                         <p class="oj_content_p">@Model.fullName</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.email)</p>
+                        <p class="oj_content_label">Email</p>
                         <p class="oj_content_p">@Model.email</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.address)</p>
+                        <p class="oj_content_label">Địa chỉ</p>
                         <p class="oj_content_p">@Model.address</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.phone)</p>
+                        <p class="oj_content_label">Số điện thoại</p>
                         <p class="oj_content_p">@Model.phone</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@Html.DisplayNameFor(model => model.role)</p>
+                        <p class="oj_content_label">Quyền</p>
                         <p class="oj_content_p">@(Model.role == true && Model.idUser == 1?"Admin":(Model.role==true)?"Quản lý":"Khách hàng")</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="oj_footer">
-            <button class="btn btn_exit" type="button">Quay lại</button>
+            <a class="btn btn_exit" href="@Url.Action("Index")">Quay lại</a>
         </div>
     </div>
     

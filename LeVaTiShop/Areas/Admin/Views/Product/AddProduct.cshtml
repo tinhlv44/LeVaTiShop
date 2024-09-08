@@ -1,7 +1,7 @@
 ﻿@model LeVaTiShop.Models.Product
 
 @{
-    ViewBag.Title = "UserDetail";
+    ViewBag.Title = "Thêm sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
@@ -13,128 +13,130 @@
                     <div class="modal_title">
                         <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
                     </div>
+                    @{
+                        var errorMessages = ViewData["ThongBao"] as List<string>;
+                    }
+
+                    @if (errorMessages != null && errorMessages.Any())
+                    {
+                        <div class="alert alert-danger">
+                            @errorMessages[0]
+                        </div>
+                    }
                     @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="modal_content">
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.nameProduct)</label>
-                        <input class="modal_content_input" type="text" name="nameProduct" id="nameProduct" required>
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.inventory)</label>
-                        <input class="modal_content_input numeric-input" type="text" maxlength="5" value="0" name="inventory" id="inventory" required>
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.price)</label>
-                        <input class="modal_content_input numeric-input" type="text" maxlength="11" value="0" name="price" required>
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.discountedPrice)</label>
-                        <input class="modal_content_input numeric-input" type="text" maxlength="11" value="0" name="discountedPrice" required>
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.Brand.nameBrand)</label>
-                        @Html.DropDownListFor(x => x.Brand, ViewBag.Brand as List<SelectListItem>, new { @class = "modal_content_input" })
+                        <div class="modal_content">
+                            <div class="modal_content_item w-100">
+                                <label class="modal_content_label">Tên sản phẩm</label>
+                                <input class="modal_content_input" type="text" maxlength="50" name="nameProduct" id="nameProduct">
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">Giá bán</label>
+                                <input class="modal_content_input numeric-input" type="text" maxlength="11" value="0" name="price">
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">Giá bán giảm giá</label>
+                                <input class="modal_content_input numeric-input" type="text" maxlength="11" value="0" name="discountedPrice">
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">Thương hiệu</label>
+                                @Html.DropDownListFor(x => x.Brand, ViewBag.Brand as List<SelectListItem>, new { @class = "modal_content_input" })
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label">Danh mục</label>
+                                @Html.DropDownListFor(x => x.Category, ViewBag.Category as List<SelectListItem>, new { @class = "modal_content_input" })
+                            </div>
+                            <div class="modal_content_item w-100">
+                                <label class="modal_content_label">Mô tả sản phẩm</label>
+                                <textarea @*id="editor"*@ class="modal_content_input cls_description" type="text" name="description"></textarea>
+                            </div>
+                            <div class="oj_content_item">
+                                <p class="oj_content_ck">Sản phẩm giảm giá</p>
+                                <input type="checkbox" class="infor_ck relo_inputcheck" name="isDiscounted" value="true">
+                                <p class="oj_content_ck">Sản phẩm nổi bật</p>
+                                <input type="checkbox" class="infor_ck relo_inputcheck" name="isFeatured" value="true">
+                            </div>
+                            <div class="modal_content_item w-100">
+                                <label class="modal_content_label">Thông số kỹ thuật</label>
+                                <textarea class="modal_content_input" type="text" name="specifications" id="specifications"></textarea>
+                                @*<button id="toggleButton" class="btn btn_nor" type="button">Ghi bảng</button>*@
+                                <input type="hidden" name="choose" id="choose" value="true">
+                                <table class="table" id="specificationsTable" style="display:none;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Thẻ sim" />Thẻ sim</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Ngày ra mắt" />Ngày ra mắt</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Màn hình" />Màn hình</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Độ phân giải" />Độ phân giải</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="CPU" />CPU</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="RAM" />RAM</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Bộ nhớ thẻ nhớ" />Bộ nhớ thẻ nhớ</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Came sau" />Came sau</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Came trước" />Came trước</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Jack 3.5mm.loa" />Jack 3.5mm.loa</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Pin" />Pin</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="GPU" />GPU</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Hệ điều hành" />Hệ điều hành</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Trong lượng" />Trong lượng</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_title"><input type="hidden" name="Hspecification" value="Chuẩn bộ nhớ" />Chuẩn bộ nhớ</td>
+                                            <td class="detail_centent"><input type="text" name="specification" value="" class="form-control" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal_content_item">
+                                <label class="modal_content_label" for="images">Ảnh bìa:</label>
+                                <input class="modal_content_input" type="file" name="images" id="images" accept="image/*" multiple onchange="displayImages(this)" />
+                            </div>
+                            <div id="imageContainer">
 
-                        @*@Html.DropDownList("Brand")*@
-                        @*<input class="modal_content_input" type="text" name="brand" id="brand" required>*@
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.Category.name)</label>
-                        @Html.DropDownListFor(x => x.Category, ViewBag.Category as List<SelectListItem>, new { @class = "modal_content_input" })
-                        @*@Html.DropDownList("Category")*@
-                        @*<input class="modal_content_input" type="text" name="category" id="category" required>*@
-                    </div>
-                    <div class="modal_content_item w-100">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.description)</label>
-                        <textarea id="editor" name="description"></textarea>
-                    </div>
-                    <div class="oj_content_item">
-                        <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isDiscounted)</p>
-                        <input type="checkbox" class="infor_ck relo_inputcheck" name="isDiscounted" value="true">
-                        <p class="oj_content_ck">@Html.DisplayNameFor(model => model.isFeatured)</p>
-                        <input type="checkbox" class="infor_ck relo_inputcheck" name="isFeatured" value="true">
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label">@Html.DisplayNameFor(model => model.specifications)</label>
-                        <input class="modal_content_input" type="text" name="specifications" id="specifications" required>
-                        <button id="toggleButton" class="btn btn_nor" type="button">Ghi bảng</button>
-                        <table class="table" id="specificationsTable" style="display:none;">
-                            <tbody>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Thẻ sim" />Thẻ sim</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Ngày ra mắt" />Ngày ra mắt</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Màn hình" />Màn hình</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Độ phân giải" />Độ phân giải</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="CPU" />CPU</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="RAM" />RAM</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Bộ nhớ thẻ nhớ" />Bộ nhớ thẻ nhớ</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Came sau" />Came sau</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Came trước" />Came trước</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Jack 3.5mm.loa" />Jack 3.5mm.loa</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Pin" />Pin</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="GPU" />GPU</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Hệ điều hành" />Hệ điều hành</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Trong lượng" />Trong lượng</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="detail_title"><input type="hidden" name="Hspecification" value="Chuẩn bộ nhớ" />Chuẩn bộ nhớ</td>
-                                    <td class="detail_centent"><input type="text" name="specification" value="" class="form-control"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal_content_item">
-                        <label class="modal_content_label" for="images">Images:</label>
-                        <input class="modal_content_input" type="file" name="images" id="images" accept="image/*" multiple onchange="displayImages(this)" required/>
-                    </div>
-                    <div id="imageContainer">
+                            </div>
 
-                    </div>
-
-                </div>
+                        </div>
                         <div class="modal_footer">
                             <button class="btn btn_nor btn_save" type="submit">Thêm sản phẩm</button>
                             <a class="btn btn_nor btn_cancel" href="/Admin/Product/Index">Hủy bỏ</a>
@@ -148,34 +150,36 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
+@section scripts{
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+        // Lắng nghe sự kiện click vào button
+        document.getElementById("toggleButton").addEventListener("click", function () {
+            var table = document.getElementById("specificationsTable");
+            var input = document.getElementById("specifications");
+            var btn = document.getElementById("toggleButton");
+            var hidden = document.getElementById("choose");
+            // Kiểm tra trạng thái hiển thị của bảng và input để thay đổi
+            if (table.style.display === "none") {
+                // Hiển thị bảng và ẩn input
+                table.style.display = "table";
+                input.style.display = "none";
+                //input. = false;
+                btn.innerHTML = "Ghi mã";
+                hidden.value = 'false';
+            } else {
+                // Hiển thị input và ẩn bảng
+                table.style.display = "none";
+                input.style.display = "block";
+                //input. = true;
+                btn.innerHTML = "Ghi bảng";
+                hidden.value = 'true';
+            }
         });
-</script>
-<script>    
-    // Lắng nghe sự kiện click vào button
-    document.getElementById("toggleButton").addEventListener("click", function () {
-        var table = document.getElementById("specificationsTable");
-        var input = document.getElementById("specifications");
-        var btn = document.getElementById("toggleButton");
-        // Kiểm tra trạng thái hiển thị của bảng và input để thay đổi
-        if (table.style.display === "none") {
-            // Hiển thị bảng và ẩn input
-            table.style.display = "table";
-            input.style.display = "none";
-            input.required = false;
-            btn.innerHTML = "Ghi mã";
-        } else {
-            // Hiển thị input và ẩn bảng
-            table.style.display = "none";
-            input.style.display = "block";
-            input.required = true;
-            btn.innerHTML = "Ghi bảng";
-        }
-    });    
-</script>
+    </script>
+
+}

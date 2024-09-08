@@ -4,86 +4,6 @@ function check_tel(tel) {
     return vnf_regex.test(tel.value);
 }
 
-// relo
-/*function checklogin(){
-    var tel = document.getElementById("relo_input_user");
-    var err_relo = document.getElementsByClassName("relo_err");
-    for (let i = 0; i < err_relo.length; i++){
-        err_relo[i].style.display = "none";
-    }
-    if (tel.value != ""){                
-        if (!check_tel(tel)){
-            err_relo[0].style.display = "block";
-            tel.focus();
-            return false;
-        } 
-    }else{
-        err_relo[1].style.display = "block";
-        tel.focus();
-        return false;
-    }
-    var mk = document.getElementById("relo_input_pass");
-    if (mk.value!=""){        
-        if (mk.value.length<8){
-            err_relo[2].style.display = "block";
-            mk.focus();
-            return false;
-        } 
-    } 
-    else{
-        err_relo[3].style.display = "block";
-        mk.focus();
-        return false;
-    }
-    presen_modal("Hiện tại chức năng đăng nhập đang bảo trì.<br>Vui lòng đăng nhập sau!");
-    return true;
-}*/
-/*function checkregis(){
-    var tel = document.getElementById("relo_input_user");
-    var err_relo = document.getElementsByClassName("relo_err");
-    for (let i = 0; i < err_relo.length; i++){
-        err_relo[i].style.display = "none";
-    }
-    if (tel.value != ""){                
-        if (!check_tel(tel)){
-            err_relo[0].style.display = "block";
-            tel.focus();
-            return false;
-        } 
-    }else{
-        err_relo[1].style.display = "block";
-        tel.focus();
-        return false;
-    }
-    var mk = document.getElementById("relo_input_pass");
-    if (mk.value!=""){        
-        if (mk.value.length<8){
-            err_relo[2].style.display = "block";
-            mk.focus();
-            return false;
-        } 
-    } 
-    else{
-        err_relo[3].style.display = "block";
-        mk.focus();
-        return false;
-    }
-    var nmk = document.getElementById("relo_input_repass");
-    if (nmk.value!=""){
-        if (nmk.value!=mk.value){
-            err_relo[4].style.display = "block";
-            nmk.focus();
-            return false;
-        }
-    }
-    else{        
-        err_relo[5].style.display = "block";
-        nmk.focus();
-        return false;
-    }    
-    presen_modal("Hiện tại chức năng đăng ký đang bảo trì.<br>Vui lòng đăng ký sau!");
-    return true;
-}*/
 function presen_modal(content) {
     var presen = document.getElementById("click_modal");
     presen.style.display = "flex";
@@ -122,50 +42,32 @@ function hiddenpass() {
     }
 }
 // slide show 
-function plusSlides(n) {
+/*function plusSlides(n) {
     showSlides(slideIndex += n);
 }
+
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
+
 function showSlides(n) {
     let slides = document.getElementsByClassName("myslide");
-    let slidelink = document.getElementsByClassName("slide_link");
-    let dots = document.getElementsByClassName("demo");
-    let index = document.getElementsByClassName("slide_idd");
-    if (n >= 1 && n <= slides.length) {
-        let i;
-        if (n > slides.length) { slideIndex = n = 1 }
-        if (n < 1) { slideIndex = n = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-            index[i].className = index[i].className.replace(" index_active", "");
-        }
+    let dots = document.getElementsByClassName("slide_idd");
 
-        if (n == 1) {
-            for (let i = n + 4; i <= slidelink.length; i++) {
-                slidelink[i - 1].style.display = "none";
-            }
-        }
-        if (n >= 2 && n <= slidelink.length - 2) {
-            for (i = 1; i < n; i++) {
-                slidelink[i - 1].style.display = "none";
-            }
-            for (i = n + 3; i <= slidelink.length; i++) {
-                slidelink[i - 1].style.display = "none";
-            }
-            for (i = n - 1; i < n + 3; i++) {
-                slidelink[i - 1].style.display = "block";
-            }
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        index[slideIndex - 1].className += " index_active";
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
     }
-}
+
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active");
+    }
+
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.add("active");
+}*/
 // see more
 function seemore() {
     let see = document.getElementById("seemore");
@@ -185,9 +87,16 @@ function hide() {
     }
 }
 // click seletion
-function selection(ct, n, path) {
+function selection(ct, n, path, amount) {
     /*element.style.border = "2px solid red";*/
     var x = document.getElementsByClassName("proi_box" + ct);
+    var a = document.getElementById('amount');
+    a.innerHTML = "Số lượng còn: " + amount;
+    /*if (amount == "0") {
+        var fc = document.getElementById('fastCheck');
+        var pc = document.getElementById('prot_cart');
+        fc.href = 
+    }*/
     if ("proi_box" + ct == "proi_boxcolor") {
         change(path);
     }
@@ -200,6 +109,12 @@ function selection(ct, n, path) {
 function change(path) {
     var y = document.getElementsByClassName("proinfor_cimg");
     y[0].src = "/set/img/product/" + path;
+    var startIndex = path.lastIndexOf("/") + 1; // Tìm vị trí cuối cùng của dấu "/"
+    var fileName = path.substr(startIndex); // Tách tên file từ vị trí đó đến hết chuỗi
+    var imgCart = document.getElementById("prot_cart");
+    var fastCheck = document.getElementById("fastCheck");
+    imgCart.setAttribute("data-product-image", fileName);
+    fastCheck.setAttribute("data-product-image", fileName);
 }
 // noti
 function not_buy() {
@@ -288,6 +203,19 @@ function buying_stock() {
         }
     }
 }
+
+function hide_Model(modal) {
+    var presen = document.getElementById(modal);
+    document.getElementsByClassName("modalbox_close")[0].onclick = function () {
+        presen.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == presen) {
+            presen.style.display = "none";
+        }
+    }
+}
+
 function clear_stock() {
     var check = document.getElementsByClassName("not_check");
     var pcart = document.getElementsByClassName("pcart_list")[0];
@@ -460,8 +388,26 @@ function displayImages(input) {
                 colorInput.type = "color";
                 colorInput.name = "colors";
                 imageContainer.appendChild(colorInput);
+
+                var amountInput = document.createElement("input");
+                amountInput.type = "text";
+                amountInput.name = "amount";
+                amountInput.maxlength = "5";
+                amountInput.value = "0";
+                amountInput.classList.add("form-control");
+                amountInput.classList.add("numeric-input");
+                imageContainer.appendChild(amountInput);
             }
             reader.readAsDataURL(input.files[i]);
         }
     }
+}
+
+
+//Bỏ kí tu dac biet
+function restrictSpecialCharacters(input) {
+    input.value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+}
+function showId(id) {
+    document.getElementById(id).style.display = 'block';
 }

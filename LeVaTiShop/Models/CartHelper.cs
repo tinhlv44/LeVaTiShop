@@ -62,4 +62,9 @@ public static class CartHelper
     {
         context.Session[CartSessionKey] = cartItems;
     }
+    public static decimal Sum(HttpContextBase context)
+    {
+        var cartItems = GetCartItems(context);
+        return cartItems.Sum(s => s.Total); ;
+    }
 }

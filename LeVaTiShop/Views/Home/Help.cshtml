@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Help";
+    ViewBag.Title = "Trợ giúp - H&T Shop";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="help_content">
@@ -13,20 +13,37 @@
             <div class="help_searchhead">
                 Xin chào. H&T shop có thể giúp gì cho bạn.
             </div>
-            <input type="text" class="help_searchinput" placeholder="Đặt câu hỏi hoặc nhập từ khóa">
+            <input type="text" class="help_searchinput" name="message" placeholder="Đặt câu hỏi hoặc nhập từ khóa">
             <div class="d-flex justify-content-center">
-                <button class="btn btn_submit">Gửi</button>
+                <button class="btn btn_submit" id="feedback">Gửi</button>
             </div>
-
         </div>
     </div>
-
-    @*<div class="help_articles w-25">
-            <h2>Các bài viết hướng dẫn</h2>
-            <ul>
-                <li><a href="#">Cách đặt hàng</a></li>
-                <li><a href="#">Hướng dẫn thanh toán</a></li>
-                <li><a href="#">Cách theo dõi đơn hàng</a></li>
-            </ul>
-        </div>*@
 </div>
+<script>
+       $(document).ready(function () {
+           $('#feedback').on('click', function () {
+               var message = document.getElementsByName('message')[0].value;
+
+                // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
+                $.ajax({
+                    url: '/Home/Help',
+                    method: 'POST',
+                    data: {
+                        message: message
+                    },
+                    success: function (response) {
+                        if (response.code) {
+                            toastr.success(response.msg);
+                        } else {
+                            toastr.error(response.msg);
+                        }
+                    },
+                    error: function () {
+                        // Xử lý lỗi yêu cầu Ajax (nếu có)
+                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                    }
+                });
+            });
+       });
+</script>

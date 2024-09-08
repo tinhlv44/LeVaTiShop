@@ -1,0 +1,137 @@
+﻿
+@model int
+
+@using LeVaTiShop.Models
+@{
+    User u = (User)Session["User"];
+}
+<div class="p-4 w-100">
+    <section>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="card text-dark">
+                    <div class="card-body p-4">
+                        @if (u != null)
+                        {
+                            <h4 class="mb-0">Viết đánh giá</h4>
+                            <p class="fw-light mb-4 pb-2">Hãy để lại đánh giá của bạn về sản phẩm</p>
+                            <div class="d-flex flex-start">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                     src=@(u.avatar!=null?"/set/img/user/"+u.avatar:"/set/img/user/default.jpg") alt="avatar" width="60"
+                                     height="60" />
+                                <div style="flex-grow: 1;">
+                                    <h6 class="fw-bold mb-1">@u.fullName</h6>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <p class="mb-0">
+                                            @DateTime.Now.ToString("dd-MM-yyy")
+                                            <span class="badge bg-primary">@(u.role?"Admin": "Khách hàng")</span>
+                                        </p>
+                                    </div>
+                                    <div class="input-group">
+                                        <textarea class="mb-0 form-control" rows="3" placeholder="Viết đánh giá" id="textarea"></textarea>
+                                        <div class="input-group-append">
+                                            <a class="btn btn_submit m-3" id="sendComment" data-product-idPro="@Model" data-product-idUser="@(u!=null?u.idUser:0)">Gửi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h4 class="mb-0">Hãy đăng nhập để viết đánh giá</h4>
+                        }
+                    </div>
+                </div>
+                <div class="card text-dark" id="comment">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+        $(document).ready(function () {
+            getComment();
+
+            $('#sendComment').on('click', function () {
+                var ct = $('#textarea').val();
+                var idUser = $(this).data('product-iduser');
+                var idProduct = $(this).data('product-idpro');
+
+                $.ajax({
+                    url: '/Home/AddComment', // Thay đổi đường dẫn dựa trên tên controller và action thực tế
+                    method: 'POST',
+                    data: {
+                        ct: ct,
+                        idUser: idUser,
+                        idProduct: idProduct
+                    },
+                    success: function (response) {
+                        if (response.code) {
+                            getComment();
+                            $('#textarea').val('');
+                        } else {
+                            toastr.error(response.msg);
+                        }
+                    },
+                    error: function () {
+                        // Xử lý lỗi yêu cầu Ajax (nếu có)
+                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                    }
+                });
+            });
+
+            function getComment() {
+                $.ajax({
+                    url: '@Url.Action("listProductComment")',
+                    type: 'get',
+                    data: {
+                        id: '@Model'
+                    },
+                    success: function (data) {
+                        if (data.code) {
+                            $('#comment').empty();
+                            var cmt = '';
+                            for (var i = 0; i < data.listComment.length; i++){
+                                cmt += '<div class="card-body p-4">\
+                                            '+ (i == 0 ? '<h4 class="mb-0" > Các đánh giá khác</h4 >' : '') + '\
+                                            <br>\
+                                            <div class="d-flex flex-start">\
+                                                <img class="rounded-circle shadow-1-strong me-3"\
+                                                     src="/set/img/user/'+ (data.avt[i] == null ? "default.jpg" : data.avt[i]) + '" alt="avatar" width="60" height="60" />\
+                                                <div>\
+                                                    <h6 class="fw-bold mb-1">'+ data.name[i]+'</h6>\
+                                                    <div class="d-flex align-items-center mb-3">\
+                                                        <p class="mb-0">'+ data.date[i] + '\
+                                                            <span class="badge bg-primary">'+ data.role[i] +'</span>\
+                                                        </p>\
+                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>\
+                                                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>\
+                                                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>\
+                                                    </div>\
+                                                    <p class="mb-0">'+ data.listComment[i].comment1 +'\
+                                                    </p>\
+                                                </div>\
+                                            </div>\
+                                        </div> ';
+
+                                cmt += (i == data.listComment.length - 1 ? '<hr class="my-0" />' : '');
+                                cmt += '<hr class="my-0" />';
+                            }
+
+                            $('#comment').html(cmt);
+                        }
+                        else {
+                            toastr.error(data.msg);
+                            return;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Error occurred while fetching product list.');
+                    }
+                });
+            }
+
+
+
+        });
+</script>

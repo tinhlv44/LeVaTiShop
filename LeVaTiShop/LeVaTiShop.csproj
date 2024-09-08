@@ -45,6 +45,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
     </Reference>
@@ -69,6 +78,24 @@
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -96,6 +123,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -171,12 +199,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeedBackController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OtherController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SlideshowController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +219,8 @@
       <DependentUpon>dt.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\function.cs" />
+    <Compile Include="Models\Slide.cs" />
+    <Compile Include="Models\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +260,6 @@
     <Content Include="Areas\Admin\Views\Product\ProductDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Order\DetailOrder.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\SearchOrder.cshtml" />
     <Content Include="Areas\Admin\Views\Product\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Product\DeleteProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Product\EditProduct.cshtml" />
@@ -236,6 +268,11 @@
       <LastGenOutput>dt.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\FeedBack\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Other\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Other\AddSlide.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\VerifyOTP.cshtml" />
     <None Include="Models\dt.dbml.layout">
       <DependentUpon>dt.dbml</DependentUpon>
     </None>
@@ -2298,23 +2335,24 @@
     <Content Include="set\img\build_pc.jpg" />
     <Content Include="set\img\iphone13s.jpg" />
     <Content Include="set\img\logo.jpg" />
-    <Content Include="set\img\product\Asus ExpertCenter AIO A3402WBAT i5 1235U8GB512GB23.8FullHDTouchBàn phímChuộtWin11 %28WA013W%29\asus-expertcenter-aio-a3402wbat-i5-wa013w-1-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Có dây Gaming Asus TUF M3\chuot-gaming-asus-tuf-m3-den-2-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-do-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây Bluetooth Silent Rapoo M500\chuot-bluetooth-silent-rapoo-m500-xanh-duong-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây DareU LM106G\chuot-khong-day-dareu-lm106g-1-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây DareU LM106G\chuot-khong-day-dareu-lm106g-20-180x125.jpg" />
-    <Content Include="set\img\product\Chuột Không dây Rapoo B2\chuot-khong-day-rapoo-b2-1-180x125.jpg" />
-    <Content Include="set\img\product\HP AIO ProOne 240 G9 i3 1215U8GB512GB23.8FullHDBàn phímChuộtWin11 %286M3T0PA%29\hp-aio-proone-240-g9-i3-6m3t0pa-1-1-180x125.jpg" />
+    <Content Include="set\img\logo_icon.jpg" />
     <Content Include="set\img\product\iPhone 11\1c1c1c.jpg" />
     <Content Include="set\img\product\iPhone 11\fdfaf5.jpg" />
-    <Content Include="set\img\product\iPhone 12\iphone-12-violet-1-200x200.jpg" />
-    <Content Include="set\img\product\iPhone 12\iphone-12-xanh-la-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 12\b5ace3.jpg" />
+    <Content Include="set\img\product\iPhone 12\d1e4d0.jpg" />
+    <Content Include="set\img\product\iPhone 13\161d23.jpg" />
+    <Content Include="set\img\product\iPhone 13\215e7b.jpg" />
+    <Content Include="set\img\product\iPhone 13\f9dcd6.jpg" />
+    <Content Include="set\img\product\iPhone 13\fbfaf7.jpg" />
     <Content Include="set\img\product\iPhone 13\iphone-13-blue-1-200x200.jpg" />
     <Content Include="set\img\product\iPhone 13\iphone-13-midnight-1-200x200.jpg" />
     <Content Include="set\img\product\iPhone 13\iphone-13-pink-1-200x200.jpg" />
     <Content Include="set\img\product\iPhone 13\iphone-13-starlight-1-200x200.jpg" />
+    <Content Include="set\img\product\iPhone 14\1a2129.jpg" />
+    <Content Include="set\img\product\iPhone 14\9cb1c4.jpg" />
+    <Content Include="set\img\product\iPhone 14\e00523.jpg" />
+    <Content Include="set\img\product\iPhone 14\ebe3f0.jpg" />
+    <Content Include="set\img\product\iPhone 14\f9f6f1.jpg" />
     <Content Include="set\img\product\iPhone 14\iPhone-14-plus-thumb-den-200x200.jpg" />
     <Content Include="set\img\product\iPhone 14\iPhone-14-plus-thumb-xanh-200x200.jpg" />
     <Content Include="set\img\product\iPhone 14\iPhone-14-thumb-do-200x200.jpg" />
@@ -2324,25 +2362,34 @@
     <Content Include="set\img\product\iPhone 15\iphone-15-vang-thumb-200x200.jpg" />
     <Content Include="set\img\product\iPhone 15\iphone-15-xanh-la-thumb-200x200.jpg" />
     <Content Include="set\img\product\iPhone 15\iphone-15-xanh-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A17\374051.jpg" />
+    <Content Include="set\img\product\OPPO A17\c8b897.jpg" />
     <Content Include="set\img\product\OPPO A17\oppo-a17k-vang-thumb-2-200x200.jpg" />
     <Content Include="set\img\product\OPPO A17\oppo-a17k-vang-thumb-ă-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A38\212226.jpg" />
+    <Content Include="set\img\product\OPPO A38\fdcca3.jpg" />
     <Content Include="set\img\product\OPPO A38\oppo-a38-black-thumb-200x200.jpg" />
     <Content Include="set\img\product\OPPO A38\oppo-a38-gold-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A58 8GB\1d2226.jpg" />
+    <Content Include="set\img\product\OPPO A58 8GB\b7dad6.jpg" />
     <Content Include="set\img\product\OPPO A58 8GB\oppo-a58-4g-black-thumb-200x200.jpg" />
     <Content Include="set\img\product\OPPO A58 8GB\oppo-a58-4g-green-thumb-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A77s\15181f.jpg" />
+    <Content Include="set\img\product\OPPO A77s\b6cfdf.jpg" />
     <Content Include="set\img\product\OPPO A77s\oppo-a77s-den-thumb-1-2-200x200.jpg" />
     <Content Include="set\img\product\OPPO A77s\oppo-a77s-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A78\313131.jpg" />
+    <Content Include="set\img\product\OPPO A78\7ed1bf.jpg" />
     <Content Include="set\img\product\OPPO A78\oppo-a78-den-thumb-1-2-200x200.jpg" />
     <Content Include="set\img\product\OPPO A78\oppo-a78-xanh-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\OPPO A98 5G\242d36.jpg" />
+    <Content Include="set\img\product\OPPO A98 5G\a3dee4.jpg" />
     <Content Include="set\img\product\OPPO A98 5G\oppo-a98-5g-den-thumb-1-200x200.jpg" />
     <Content Include="set\img\product\OPPO A98 5G\oppo-a98-5g-xanh-thumb-1-2-200x200.jpg" />
+    <Content Include="set\img\product\OPPO Reno10 Pro 5G\3b3b39.jpg" />
+    <Content Include="set\img\product\OPPO Reno10 Pro 5G\9d88b1.jpg" />
     <Content Include="set\img\product\OPPO Reno10 Pro 5G\oppo-reno10-pro-grey-thumbnew-200x200.jpg" />
     <Content Include="set\img\product\OPPO Reno10 Pro 5G\oppo-reno10-pro-tim-thumbnew-200x200.jpg" />
-    <Content Include="set\img\product\Pin sạc dự phòng 10000mAh Type C PD QC 3.0 30W Anker A1256\pin-sac-du-phong-10000mah-type-c-pd-qc-3-0-30w-anker-a1256-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-den-1-2-180x125.jpg" />
-    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-tim-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-trang-1-1-180x125.jpg" />
-    <Content Include="set\img\product\Polymer 10000mAh Không dây Magnetic Type C PD 20W Xmobile T156\sac-du-phong-polymer-10000mah-khong-day-magnetic-type-c-pd-20w-xmobile-t156-xanh-1-1-180x125.jpg" />
     <Content Include="set\img\product\realme 10\realme-10-den-thumb-200x200.jpg" />
     <Content Include="set\img\product\realme 10\realme-10-thumb-1-200x200.jpg" />
     <Content Include="set\img\product\realme 11 128GB\realme-11-thumb-200x200.jpg" />
@@ -2351,28 +2398,55 @@
     <Content Include="set\img\product\realme 11 Pro 5G\realme-11-pro-5g-white-thumb-200x200.jpg" />
     <Content Include="set\img\product\realme C51 64GB\realme-c51-den-thumb-200x200.jpg" />
     <Content Include="set\img\product\realme C51 64GB\realme-c51-xanh-thumbnail-200x200.jpg" />
+    <Content Include="set\img\product\realme C53\1b1e23.jpg" />
+    <Content Include="set\img\product\realme C53\fbe9a8.jpg" />
     <Content Include="set\img\product\realme C53\realme-c53-black-thumb-200x200.jpg" />
     <Content Include="set\img\product\realme C53\realme-c53-gold-thumb-1-200x200.jpg" />
+    <Content Include="set\img\product\realme C55 6GB\293241.jpg" />
+    <Content Include="set\img\product\realme C55 6GB\fdedd4.jpg" />
     <Content Include="set\img\product\realme C55 6GB\realme-c35-den-thumb-200x200.jpg" />
     <Content Include="set\img\product\realme C55 6GB\realme-c35-vang-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Realme GT Neo2\bee36b.jpg" />
+    <Content Include="set\img\product\Realme GT Neo2\realme-gt-neo2-1-600x600.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\26272c.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\294946.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A04s\9a5a5a.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-den-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-nau-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A04s\samsung-galaxy-a04s-thumb-xanh-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\1d1e23.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\653f4c.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A14 4GB\afa8b1.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-humb-bac-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-thumb-den-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A14 4GB\samsung-galaxy-a14-tlte-thumb-nau-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\2f3032.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\9392d8.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\e4f5c1.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-den-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-tim-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy A54 5G 128GB\samsung-galaxy-a54-thumb-xanh-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy M34 5g\1d2031.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy M34 5g\94b4bf.jpg" />
     <Content Include="set\img\product\Samsung Galaxy M34 5g\samsung-galaxy-m34-xanh-ngoc-thumb-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy M34 5g\samsung-galaxy-m34-xanh-thumb-1-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-kem-thumb-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-tim-thumb-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-xam-thumb-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Flip5 5G 256GB\samsung-galaxy-z-flip5-xanh-mint-thumb-200x200.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\151412.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\a1a8ba.jpg" />
+    <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\ece8df.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- den-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- kem-200x200.jpg" />
     <Content Include="set\img\product\Samsung Galaxy Z Fold5 5G 256GB\samsung-galaxy-z-fold5- xanh-200x200.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12 Pro\34373e.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12 Pro\7ca09c.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12 Pro\c0e7fd.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12 Pro\fedba1.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\1e1e1e.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\88b0d4.jpg" />
+    <Content Include="set\img\product\Xiaomi Redmi Note 12S\c0f3d2.jpg" />
     <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-12s-xanh-duong-thumb-200x200.jpg" />
     <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-note-12s-xanh-thumb-1-200x200.jpg" />
     <Content Include="set\img\product\Xiaomi Redmi Note 12S\xiaomi-redmi-note12s-den-thumb-200x200.jpg" />
@@ -2380,20 +2454,24 @@
     <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-4g-mono-xanh-1-200x200.jpg" />
     <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-vang-1-thumb-momo-200x200.jpg" />
     <Content Include="set\img\product\Xiaomi Redmi Note 12\xiaomi-redmi-note-12-xanh-duong-1-thumb-200x200.jpg" />
-    <Content Include="set\img\product\Đồng hồ Elio 20 mm Nữ ES145-01\elio-es145-01-nu-2-180x125.jpg" />
-    <Content Include="set\img\product\Đồng hồ Elio 23 mm Nữ EL141-03\elio-el141-03-nu-3-180x125.jpg" />
-    <Content Include="set\img\product\Đồng hồ Elio 23 mm Nữ ES146-02\elio-es146-02-nu-3-180x125.jpg" />
-    <Content Include="set\img\product\Đồng hồ Elio 32 mm Nữ EL142-02\elio-el142-02-nu-3-180x125.jpg" />
     <Content Include="set\img\security.jpg" />
     <Content Include="set\img\slideshow\galaxy_zlip3.jpg" />
-    <Content Include="set\img\slideshow\gtneo2.jpg" />
-    <Content Include="set\img\slideshow\iphone_11_chinh_hang.jpg" />
-    <Content Include="set\img\slideshow\iphone_12_chinh_hang.jpg" />
     <Content Include="set\img\slideshow\iphone_13_pro_max.jpg" />
     <Content Include="set\img\slideshow\redmi_k30_5g.jpg" />
     <Content Include="set\img\slideshow\redmi_k40_gaming.jpg" />
     <Content Include="set\img\slideshow\samsung_galaxy_a12_chinh_hang.jpg" />
+    <Content Include="set\img\slideshow\sl0.jpg" />
+    <Content Include="set\img\slideshow\sl1.jpg" />
+    <Content Include="set\img\slideshow\sl16.jpg" />
+    <Content Include="set\img\slideshow\sl2.jpg" />
+    <Content Include="set\img\slideshow\sl20.jpg" />
+    <Content Include="set\img\slideshow\sl3.jpg" />
+    <Content Include="set\img\slideshow\sl4.jpg" />
+    <Content Include="set\img\slideshow\sl5.jpg" />
+    <Content Include="set\img\slideshow\sl6.jpg" />
     <Content Include="set\img\top_mb.jpg" />
+    <Content Include="set\img\user\default.jpg" />
+    <Content Include="set\img\user\user1.jpg" />
     <Content Include="set\js\main.js" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
@@ -2403,9 +2481,19 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Home\Sidebar.cshtml" />
-    <Content Include="Views\Home\Brand.cshtml" />
     <Content Include="Views\Login\Profile.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Cart\OrderConfirmation.cshtml" />
+    <Content Include="Views\Cart\PlaceOrder.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Home\Notify.cshtml" />
+    <Content Include="Views\Search\SideBar.cshtml" />
+    <Content Include="Views\Cart\CartDetail.cshtml" />
+    <Content Include="set\img\logo.jpg~" />
+    <Content Include="Views\Cart\SuccessPayment.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\Accessory.cshtml" />
+    <Content Include="Views\Home\Comment.cshtml" />
     <None Include="Views\Shared\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2472,20 +2560,20 @@
     <Content Include="set\icon-web\webfonts\fa-solid-900.woff2" />
     <Content Include="set\icon-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="set\icon-web\webfonts\fa-v4compatibility.woff2" />
-    <Content Include="set\img\logo.jpg~" />
     <Content Include="Views\Shared\_PartialFooter.cshtml" />
     <Content Include="Views\Home\Header.cshtml" />
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\SlideShow.cshtml" />
     <Content Include="Views\Shared\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Slideshow\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="set\font\" />
-    <Folder Include="set\img\user\" />
+    <Folder Include="set\img\sp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

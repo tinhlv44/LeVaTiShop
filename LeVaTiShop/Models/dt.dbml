@@ -18,8 +18,29 @@
       <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="total" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="version" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Order_DetailOrder" Member="Order" ThisKey="idOrder" OtherKey="idOrder" Type="Order" IsForeignKey="true" />
       <Association Name="Product_DetailOrder" Member="Product" ThisKey="idProduct" OtherKey="idProduct" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comment" Member="comment1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="liked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Product_Comment" Member="Product" ThisKey="idProduct" OtherKey="idProduct" Type="Product" IsForeignKey="true" />
+      <Association Name="User_Comment" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Message" Member="Messages">
+    <Type Name="Message">
+      <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="messageContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="User_Message" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Orders" Member="Orders">
@@ -33,14 +54,6 @@
       <Association Name="User_Order" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Message" Member="Messages">
-    <Type Name="Message">
-      <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="messageContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="User_Message" Member="User" ThisKey="idUser" OtherKey="idUser" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Products" Member="Products">
     <Type Name="Product">
       <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -48,7 +61,7 @@
       <Column Name="description" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="discountedPrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="inventory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="inventory" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="idBrand" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="image" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
@@ -57,24 +70,35 @@
       <Column Name="isFeatured" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="isDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Product_DetailOrder" Member="DetailOrders" ThisKey="idProduct" OtherKey="idProduct" Type="DetailOrder" />
+      <Association Name="Product_Comment" Member="Comments" ThisKey="idProduct" OtherKey="idProduct" Type="Comment" />
+      <Association Name="Product_SlideShow" Member="SlideShows" ThisKey="idProduct" OtherKey="idProduct" Type="SlideShow" />
       <Association Name="Brand_Product" Member="Brand" ThisKey="idBrand" OtherKey="idBrand" Type="Brand" IsForeignKey="true" />
       <Association Name="Category_Product" Member="Category" ThisKey="idCategory" OtherKey="idCategory" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SlideShow" Member="SlideShows">
+    <Type Name="SlideShow">
+      <Column Name="idSlide" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="show" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Product_SlideShow" Member="Product" ThisKey="idProduct" OtherKey="idProduct" Type="Product" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="idUser" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="nameUser" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="fullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="avatar" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="role" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="isDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="User_Order" Member="Orders" ThisKey="idUser" OtherKey="idUser" Type="Order" />
+      <Association Name="User_Comment" Member="Comments" ThisKey="idUser" OtherKey="idUser" Type="Comment" />
       <Association Name="User_Message" Member="Messages" ThisKey="idUser" OtherKey="idUser" Type="Message" />
+      <Association Name="User_Order" Member="Orders" ThisKey="idUser" OtherKey="idUser" Type="Order" />
     </Type>
   </Table>
 </Database>

@@ -1,0 +1,35 @@
+﻿
+@model LeVaTiShop.Models.User
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/Login.cshtml";
+}
+<div class="relo">
+    <div class="relo_bg"></div>
+    <div class="relo_body">
+        <form class="relo_container" action="/Admin/Admin/VerifyOTP" method="post">
+            <div class="relo_head">
+                <h3 class="relo_heading">Xác minh OTP</h3>
+            </div>
+            <div class="relo_err">
+                <p class="relo_errct">
+                    @ViewBag.ThongBao
+                </p>
+            </div>
+            <div class="relo_form">
+                <div class="input-container">
+                    <input type="text" class="relo_input" name="otp" required>
+                    <label class="relo_label">Mã OTP</label>
+                </div>
+                <div class="relo_hidden">
+                    <div class="relo_hiddenct">Bạn có 5 phút để nhập mã OTP</div>
+                    <a class="relo_linkhelp" href="/Admin/Admin/ResendOTP">Gửi lại mã OTP</a>
+                </div>
+            </div>
+            <div class="relo_btn">
+                <button class="btn relo_btnr">Xác nhận</button>
+            </div>
+        </form>
+    </div>
+</div>
+

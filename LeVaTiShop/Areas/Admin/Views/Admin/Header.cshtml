@@ -1,6 +1,6 @@
 ﻿@using LeVaTiShop.Models
 @{
-    User u = (User)Session["User"];
+    User u = (User)Session["UserAD"];
 }
 
 <header class="header_admin">
@@ -8,7 +8,7 @@
         <span style="font-size:30px;cursor:pointer" onclick="show('sidebar')">&#9776;</span>
         <p class="header_admin_ct">Xin chào, @u.fullName</p>
     </div>
-    <a href="/Home/Index" class="header_admin_quit">
+    @*<a href="/Home/Index" class="header_admin_quit">
         <i class="fa-solid fa-circle-right"></i>
-    </a>
+    </a>*@
 </header>

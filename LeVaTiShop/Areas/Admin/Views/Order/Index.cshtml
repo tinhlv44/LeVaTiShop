@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<LeVaTiShop.Models.Order>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
 }
 
 <div class="content_title">
@@ -11,9 +13,9 @@
 <div class="content_main">
     <div class="content_titleList" style="justify-content: flex-end;">
         <div class="searchBar_admin">
-            <form action="/" method="post" class="searchBar_admin">
+            <form action="@Url.Action("Index", "Order")" method="post" class="searchBar_admin">
                 <label for="searchInput">Tìm kiếm:</label>
-                <input type="search" id="searchInput" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
+                <input type="search" id="searchInput" name="key" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
                 <button type="submit" class="btn btn_search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -21,7 +23,7 @@
         </div>
     </div>
     <div class="content_list">
-        @if (Model == null)
+        @if (Model == null || !Model.Any())
         {
             <div>
                 <div class="pcart_hollow">
@@ -36,19 +38,19 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.idOrder)
+                            Mã đơn hàng
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.User.fullName)
+                            Họ và tên
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.dateOrder)
+                            Thời gian đặt hàng
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.state)
+                            Trạng thái
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.isPay)
+                            Đã thanh toán
                         </th>
                         <th class="th_btn">
 
@@ -69,100 +71,33 @@
                                 @i.dateOrder
                             </td>
                             <td>
-                                <div>
-                                    @*@i.state*@
-                                    Đang giao
+                                @{ 
+                                    string state;
+                                    string hexColor;
+                                   f.getState(i.state, out state, out hexColor);
+                                }
+                                <div style="background-color:@hexColor" class="stateOrder">
+                                    @state
                                 </div>
                             </td>
                             <td>
-                                <input type="checkbox" name="name" @(i.isPay ? "checked" : "") disabled/>
+                                <input type="checkbox" class="relo_inputcheck" name="name" @(i.isPay ? "checked" : "") disabled >
                             </td>
                             <td class="td_btn">
-                                <a href="@Url.Action("DetailOrder","Order", new {id = i.idOrder})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
+                                <a href="@Url.Action("DetailOrder","Order", new {id = i.idOrder})" class="btn btn_min btn_detail" title="Thông tin chi tiết">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
                             </td>
                         </tr>
-
-                        @*<tr>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Bình
-                            </td>
-                            <td>
-                                22/03/2023
-                            </td>
-                            <td>
-                                <div>
-                                    Đã giao hàng
-                                </div>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="name" value="" checked />
-
-                            <td class="td_btn">
-                                <a href="@Url.Action("ProductDetail","Product", new {id = Model})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                Gia Truyền
-                            </td>
-                            <td>
-                                10/10//2023
-                            </td>
-                            <td>
-                                <div>
-                                    Đang giao hàng
-                                </div>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="name" value="" checked />
-
-                            <td class="td_btn">
-                                <a href="@Url.Action("ProductDetail","Product", new {id = Model})" class="btn btn_detail" type="button" title="Thông tin chi tiết">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                Bình
-                            </td>
-                            <td>
-                                14/10/2023
-                            </td>
-                            <td>
-                                <div>
-                                    Chờ xác nhận
-                                </div>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="name" value="" checked />
-
-                            <td class="td_btn">
-                                <a href="@Url.Action("ProductDetail","Product", new { id = Model })" class="btn btn_detail" type="button" title="Thông tin chi tiết">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                            </td>
-                        </tr>*@
                     }
                 </tbody>
             </table>
         }
     </div>
 </div>
-<script>
-    // Cập nhật giờ hiện tại mỗi giây
-    setInterval(displayCurrentTime, 1000);
-</script>
+@section scripts{
+    <script>
+        // Cập nhật giờ hiện tại mỗi giây
+        setInterval(displayCurrentTime, 1000);
+    </script>
+}

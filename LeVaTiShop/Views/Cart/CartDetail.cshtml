@@ -1,0 +1,123 @@
+﻿@model List<LeVaTiShop.Models.DetailOrder>
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LeVaTiShop.Models.User u = (LeVaTiShop.Models.User)Session["User"];
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+    decimal sum = 0;
+}
+
+<h2>Chi tiết đơn hàng</h2>
+<table class="table table_cart">
+    <tr>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Ảnh bìa
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Thành tiền
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Product.nameProduct
+            </td>
+
+            <td>
+                @{
+                    f.analysisImage(item.Product.image, out List<string> c, out List<string> i);
+                }
+                <img src="~/set/img/product/@item.Product.nameProduct/@i[0] " alt="@item.Product.nameProduct" />
+            </td>
+            <td>
+                @{
+                    decimal price = (item.Product.isDiscounted ? (item.Product.discountedPrice.HasValue? item.Product.discountedPrice.Value:0) : item.Product.price);
+                }
+                @price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+            </td>
+            <td>
+                @item.quantity
+            </td>
+            <td>
+                @{
+                    decimal total = price * item.quantity;
+                    sum += total;
+                }
+                @total.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+            </td>
+        </tr>
+    }
+
+</table>
+<h2>Thông tin khách hàng</h2>
+<div class="infor_user">
+    <div class="oj_content_item">
+        <label class="oj_content_label">Họ và tên</label>
+        <input type="text" value="@u.fullName" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Email</label>
+        <input type="text" value="@u.email" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Địa chỉ giao hàng</label>
+        <input type="text" value="@u.address" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Số điện thoại</label>
+        <input type="text" value="@u.phone" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Tổng tiền phải thanh toán</label>
+        <input type="text" value="@sum VNĐ" class="form-control" disabled />
+    </div>
+    <div class="oj_content_item">
+        <label class="oj_content_label">Trạng thái đơn hàng</label>
+        <input type="text" value="@f.getState(Model[0].Order.state, out string state, out string hex)" class="form-control" disabled />
+    </div>
+</div>
+
+<div class="d-flex">
+    <a href="#" class="btn btn_nor btn_trash" onclick="updateOrderStatus()">
+        Hủy đơn hàng
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="btn relo_btnr">
+        Quay lại
+    </a>
+</div>
+
+<script>
+    function updateOrderStatus() {
+            var newStatus = 4;
+            var idOrder = @Model[0].Order.idOrder; // Lấy giá trị idOrder từ Model
+
+            // Gửi yêu cầu AJAX
+            $.ajax({
+                url: '@Url.Action("updateState", "Order")',
+                type: "POST",
+                data: {
+                    idOrder: idOrder,
+                    state: newStatus
+                },
+                success: function (data) {
+                    toastr.success('Bạn đã hủy đơn hàng thành công.');
+                }
+                /*,
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }*/
+            });
+        }
+</script>

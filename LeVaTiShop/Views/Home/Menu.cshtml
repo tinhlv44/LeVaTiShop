@@ -12,134 +12,25 @@
             </li>
         }
         <li>
-            <a href="#">
+            <a href="@Url.Action("Accessory", "Home", new {priceForm=0, priceTo=999000000, nameBrand="phu-kien"})">
+                <i class="fa-solid fa-receipt"></i>
+                Phụ kiện
+            </a>
+            @*<ul class="sub_menu2">
+                <li onclick="not_promotion()"><a>Thông tin trao thưởng</a></li>
+                <li onclick="not_promotion()"><a>Tất cả khuyến mãi</a></li>
+            </ul>*@
+        </li>
+        <li>
+            <a href="@Url.Action("Search", "Home", new {priceForm=0, priceTo=999000000, nameBrand="khuyen-mai"})">
                 <i class="fa-solid fa-receipt"></i>
                 Khuyến mãi
             </a>
-            <ul class="sub_menu2">
+            @*<ul class="sub_menu2">
                 <li onclick="not_promotion()"><a>Thông tin trao thưởng</a></li>
                 <li onclick="not_promotion()"><a>Tất cả khuyến mãi</a></li>
-            </ul>
+            </ul>*@
         </li>
-
-        @*<li>
-            <a href="phone.html">
-                <i class="fa-solid fa-mobile"></i>
-                Điện thoại
-            </a>
-            <div class="dienthoai">
-                <div class="name">
-                    <h3>HÃNG SẢN XUẤT</h3>
-                    <ul class="sub_menu1">
-                        <li><a>Apple (iPhone)</a></li>
-                        <li><a>Samsung</a></li>
-                        <li><a>OPPO</a></li>
-                        <li><a>Xiaomi</a></li>
-                        <li><a>Realme</a></li>
-                        <li><a>Vivo</a></li>
-                        <li><a>Nokia</a></li>
-                    </ul>
-                </div>
-                <div class="coin">
-                    <h3>MỨC GIÁ</h3>
-                    <ul class="sub_menu1">
-                        <li><a>Dưới 2 triệu</a></li>
-                        <li><a>Từ 2 - 5 triệu</a></li>
-                        <li><a>Từ 5 - 10 triệu</a></li>
-                        <li><a>Từ 10 - 20 triệu</a></li>
-                        <li><a>Trên 20 triệu</a></li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li>
-            <a href="laptop.html">
-                <i class="fa-solid fa-laptop"></i>
-                Laptop
-            </a>
-            <div class="laptop">
-                <div class="name">
-                    <div>
-                        <h3>HÃNG SẢN XUẤT</h3>
-                        <ul class="sub_menu1">
-                            <li><a>Apple (MacBook)</a></li>
-                            <li><a>Asus</a></li>
-                            <li><a>HP</a></li>
-                            <li><a>Acer</a></li>
-                            <li><a>MSI</a></li>
-                            <li><a>Lenovo</a></li>
-                            <li><a>Dell</a></li>
-                            <li><a>Microsoft (Surface)</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>PHẦN MỀM</h3>
-                        <ul class="sub_menu1">
-                            <li><a>Diệt virus</a></li>
-                            <li><a>Microsoft Office</a></li>
-                            <li><a>Windowns</a></li>
-                            <li><a>Phần mềm khác</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="coin">
-                    <h3>MỨC GIÁ</h3>
-                    <ul class="sub_menu1">
-                        <li><a>Dưới 2 triệu</a></li>
-                        <li><a>Từ 2 - 5 triệu</a></li>
-                        <li><a>Từ 5 - 10 triệu</a></li>
-                        <li><a>Từ 10 - 20 triệu</a></li>
-                        <li><a>Trên 20 triệu</a></li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li>
-            <a>
-                <i class="fa-solid fa-tablet"></i>
-                Tablet
-            </a>
-        </li>
-        <li>
-            <a>
-                <i class="fa-solid fa-computer"></i>
-                PC - Linh kiện
-            </a>
-            <ul class="sub_menu2">
-                <li><a>PC</a></li>
-                <li><a>Linh kiện</a></li>
-                <li><a>Màn hình</a></li>
-                <li><a>Xây dựng PC</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="accessory.html">
-                <i class="fa-solid fa-headphones-simple"></i>
-                Phụ kiện
-            </a>
-            <ul class="sub_menu2">
-                <li><a>Tai nghe</a></li>
-                <li><a>Sạc dự phòng</a></li>
-                <li><a>Bao da ốp lưng</a></li>
-                <li><a>Thẻ nhớ</a></li>
-                <li><a>Loa</a></li>
-                <li><a>Bàn phím</a></li>
-                <li><a>Tai nghe</a></li>
-                <li><a>Phụ kiện khác</a></li>
-            </ul>
-        </li>
-        <li>
-            <a>
-                <i class="fa-solid fa-recycle"></i>
-                Máy cũ giá rẻ
-            </a>
-        </li>
-        <li>
-            <a>
-                <i class="fa-solid fa-sim-card"></i>
-                SIM & thẻ cào
-            </a>
-        </li>*@
 
     </ul>
 </nav>

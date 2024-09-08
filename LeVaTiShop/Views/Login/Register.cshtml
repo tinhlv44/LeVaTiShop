@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng ký";
     Layout = "~/Views/Shared/Login.cshtml";
 }
-
+@model LeVaTiShop.Models.User
 
 <div class="relo">
     <div class="relo_bg"></div>
@@ -13,37 +13,47 @@
                 <a href="@Url.Action("Login", "Login")" class="relo_relo">Đăng nhập</a>
             </div>
 
-            <h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+            <div class="relo_err">
+                @{
+                    var errorMessages = ViewData["ThongBao"] as List<string>;
+                }
+
+                @if (errorMessages != null && errorMessages.Any())
+                {
+                    <p class="relo_errct">@errorMessages[0]</p>
+                }
+            </div>
 
             <div class="relo_form">
 
 
                 <div class="input-container">
-                    <input type="text" class="relo_input" name="nameUser" pattern="[a-zA-Z0-9]+" required="">
+                    <input type="text" class="relo_input" name="nameUser" maxlength="20" oninput="restrictSpecialCharacters(this)" value="@ViewBag.nameUser">
                     <label class="relo_label">Tên đăng nhập</label>
                 </div>
                 <div class="input-container input-container_min">
-                    <input type="password" class="relo_input" name="pasword" pattern="[a-zA-Z0-9]+" required="" id="relo_input_pass">
+                    <input type="password" class="relo_input" name="password" maxlength="20" id="relo_input_pass" value="@ViewBag.password">
                     <label class="relo_label">Mật khẩu</label>
                 </div>
                 <div class="input-container input-container_min">
-                    <input type="password" class="relo_input" name="rePassword" pattern="[a-zA-Z0-9]+" required="" id="relo_input_repass">
+                    <input type="password" class="relo_input" name="rePassword" maxlength="20" id="relo_input_repass" value="@ViewBag.rePassword">
                     <label class="relo_label">Nhập lại mật khẩu</label>
                 </div>
                 <div class="input-container input-container_min">
-                    <input type="text" class="relo_input" name="fullName" required="">
+                    <input type="text" class="relo_input" name="fullName" maxlength="50" value="@ViewBag.fullName">
                     <label class="relo_label">Họ và tên</label>
                 </div>
                 <div class="input-container input-container_min">
-                    <input type="tel" class="relo_input" name="phone" required="">
+                    <input type="tel" class="relo_input" name="phone" maxlength="10" value="@ViewBag.phone">
                     <label class="relo_label">Số điện thoại</label>
                 </div>
                 <div class="input-container">
-                    <input type="email" class="relo_input" name="email" required="">
+                    <input type="text" class="relo_input" name="email" maxlength="50" value="@ViewBag.email">
                     <label class="relo_label">Email</label>
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 </div>
                 <div class="input-container">
-                    <input type="text" class="relo_input" name="address" required="">
+                    <input type="text" class="relo_input" name="address" maxlength="100" value="@ViewBag.address">
                     <label class="relo_label">Địa chỉ</label>
                 </div>
 

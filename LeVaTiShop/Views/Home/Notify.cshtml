@@ -1,0 +1,26 @@
+﻿@model List<LeVaTiShop.Models.Message>
+@{ 
+    LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+    List<int> idOrder = ViewBag.ListIDOrder as List<int>;
+}
+@if (!Model.Any())
+{
+    <div>
+        <div class="pcart_hollow">
+            <i class="icon_sad fa-solid fa-envelope"></i>
+            <div class="pcart_hollowct">Không có thông báo</div>
+        </div>
+    </div>
+}
+else
+{
+    for (int i =0; i< Model.Count(); i++)
+    {
+        <li class="notify_item">
+            <a href="@Url.Action("CartDetail", "Cart", new { idOrder = idOrder[i] })">
+                <div class="date">@Model[i].date.ToString()</div>
+                <div class="message">@f.takeMessage(Model[i].messageContent)</div>
+            </a>
+        </li>
+    }
+}

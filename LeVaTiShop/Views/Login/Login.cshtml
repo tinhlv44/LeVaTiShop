@@ -1,40 +1,32 @@
-﻿
+﻿@model LeVaTiShop.Models.User
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/Login.cshtml";
 }
-
 <div class="relo">
     <div class="relo_bg"></div>
     <div class="relo_body">
         <form class="relo_container" action="/Login/Login" method="post">
+            @Html.AntiForgeryToken()
             <div class="relo_head">
                 <h3 class="relo_heading">Đăng nhập</h3>
                 <a href="/Login/Register" class="relo_relo">Đăng ký</a>
             </div>
-
-
-            <h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
-
-
+            <div class="relo_err">
+                <p class="relo_errct">
+                    @ViewBag.ThongBao
+                </p>
+            </div>
             <div class="relo_form">
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        @ViewData["errUser"]
-                    </p>
-                </div>
                 <div class="input-container">
-                    <input type="text" class="relo_input" name="nameUser" pattern="[a-zA-Z0-9]+" required="">
+                    <input type="text" class="relo_input" name="nameUser" oninput="restrictSpecialCharacters(this)" required>
                     <label class="relo_label">Tên đăng nhập</label>
-                </div>
-                <div class="relo_err">
-                    <p class="relo_errct">
-                        @ViewData["errPass"]
-                    </p>
+                    @Html.ValidationMessageFor(model => model.nameUser, "", new { @class = "text-danger" })
                 </div>
                 <div class="input-container">
-                    <input type="password" class="relo_input" name="password" pattern="[a-zA-Z0-9]+" required="" id="relo_input_pass">
+                    <input type="password" class="relo_input" name="password" required="" id="relo_input_pass">
                     <label class="relo_label">Mật khẩu</label>
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                 </div>
                 <div class="relo_hidden">
                     <input type="checkbox" class="relo_inputcheck" onclick="hiddenpass()">
@@ -43,13 +35,13 @@
             </div>
             <div class="relo_formaside">
                 <div class="relo_help">
-                    <a href="#" class="relo_linkhelp">Quên mật khẩu</a>
-                    <a href="#" class="relo_linkhelp help">Cần trợ giúp?</a>
+                    <a href="@Url.Action("ForgotPassword")" class="relo_linkhelp">Quên mật khẩu</a>
+                    <a href="@Url.Action("Help","Home")" class="relo_linkhelp help">Cần trợ giúp?</a>
                 </div>
             </div>
             <div class="relo_btn">
                 <a href="@Url.Action("Index", "Home")" class="relo_btnl btn">
-                    <p type="button" >TRỞ LẠI</p>
+                    <p type="button">TRỞ LẠI</p>
                 </a>
                 <button class="btn relo_btnr">ĐĂNG NHẬP</button>
                 <input type="hidden" value="@ViewBag.url" name="url" />

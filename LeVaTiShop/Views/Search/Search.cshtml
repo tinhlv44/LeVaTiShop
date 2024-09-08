@@ -5,52 +5,60 @@
 
 
 @{
-    ViewBag.Title = "H&T Shop";
+    ViewBag.Title = "Tìm kiếm - \""+ ViewBag.keyWord+"\"";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
     function f = new function();
     List<List<string>> sColor = new List<List<string>>();
     List<List<string>> sImage = new List<List<string>>();
+    List<List<string>> amount = new List<List<string>>();
     List<decimal> disPrice = new List<decimal>();
     //disPrice.Add(0);
 
-    for (int i = 0; i < Model.Count; i++)
+    if (Model != null)
     {
-        List<string> sC = new List<string>();
-        List<string> sI = new List<string>();
-        f.analysisImage(Model[i].image, out sC, out sI);
-        sColor.Add(sC);
-        sImage.Add(sI);
-        if (Model[i].discountedPrice.HasValue)
+        for (int i = 0; i < Model.Count; i++)
         {
-            disPrice.Add(Model[i].discountedPrice.Value);
+            List<string> sC = new List<string>();
+            List<string> sI = new List<string>();
+            List<string> a = new List<string>();
+            f.analysisImage(Model[i].image, out sC, out sI);
+            sColor.Add(sC);
+            sImage.Add(sI);
+            if (Model[i].discountedPrice.HasValue)
+            {
+                disPrice.Add(Model[i].discountedPrice.Value);
+            }
+            f.amountProduct(Model[i].inventory, out a);
+            amount.Add(a);
         }
     }
+
 }
-<div class="min-vw-100 d-flex justify-content-center">
-    @*<div class="w-25">
-        @Html.Action("Sidebar", "Home")
-    </div>*@
+<div class="min-vw-100 d-flex">
+    <div class="w-25">
+        @Html.Action("Sidebar", "Search")
+    </div>
     <div class="w-75">
-        <div class="product">
-            <div class="product_type">
-                <div class="product_heading">
-                    <h3 class="product_headingct">Kết quả tìm kiếm</h3>
+        @if (Model == null)
+        {
+            <div>
+                <div class="pcart_hollow">
+                    <i class="icon_sad fa-solid fa-face-frown"></i>
+                    <div class="pcart_hollowct">Không tìm thấy kết quả</div>
                 </div>
-                <div class="prot">
-                    @if (Model.Count == 0)
-                    {
-                        <div class="cart_empty">
-                            <div class="pcart_hollow">
-                                <i class="icon_sad fa-solid fa-face-frown"></i>
-                                <div class="pcart_hollowct">Không tìm thấy kết quả</div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        for (int pro = 0; pro < Model.Count(); pro++)
+            </div>
+        }
+        else
+        {
+            <div class="product">
+                <div class="product_type">
+                    <div class="product_heading">
+                        <h3 class="product_headingct">Sản phẩm bán chạy</h3>
+                    </div>
+                    <div class="prot">
+                        @for (int pro = 0; pro < Model.Count(); pro++)
                         {
                             <div class="w-25">
                                 <div class="prot_frame">
@@ -71,10 +79,14 @@
                                         }
                                     </div>
                                     <div class="prot_btn">
-                                        <button class="prot_pay btn btn_green" onclick="end_stock()">Đặt hàng ngay</button>
-                                        <a href="@Url.Action("AddToCart", "Cart", new { id = Model[pro].idProduct, img= sImage[pro][0], price = Model[pro].discountedPrice})" class="prot_cart" onclick="add_cart(@(pro+1))">
+                                        @{
+                                            string href = amount[pro][0] != "0" ? Url.Action("FastCheckout", "Cart", new { id = Model[pro].idProduct, img = sImage[pro][0], price = Model[pro].isDiscounted ? Model[pro].discountedPrice : Model[pro].price }) : "#";
+                                            string onclick = amount[pro][0] != "0" ? "" : "end_stock()";
+                                        }
+                                        <a class="prot_pay btn btn_green" href="@href" onclick="@onclick">Đặt hàng ngay</a>
+                                        <button class="prot_cart" data-product-id="@Model[pro].idProduct" data-product-price="@(Model[pro].isDiscounted ? Model[pro].discountedPrice : Model[pro].price)" data-product-image="@sImage[pro][0]">
                                             <i class="icon_cart_pro fa-solid fa-cart-shopping"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                     @if (Model[pro].isDiscounted)
                                     {
@@ -83,41 +95,65 @@
                                 </div>
                             </div>
                         }
-                    }
+                    </div>
                 </div>
             </div>
-        </div>
-        Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
-        <div class="menuTrang">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { pa = page }))
-        </div>
-        <style>
-            .menuTrang {
-                display: inline;
-                text-align: center;
-            }
-        </style>
+            <div>
+                Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+                <div class="menuPage">
+                    @Html.PagedListPager(Model, page => Url.Action("Search", new {result = ViewBag.result, pa = page }))
+                </div>
+            </div>
+        }
     </div>
 </div>
 
-
 <script>
-    // Lưu giá trị cuộn của trang vào cookie khi người dùng cuộn trang
-    window.addEventListener('scroll', function () {
-        document.cookie = "scrollPosition=" + window.pageYOffset + "; path=/";
-    });
-
-    // Khôi phục giá trị cuộn của trang sau khi tải lại
-    window.onload = function () {
-        var scrollPosition = getCookie("scrollPosition");
-        if (scrollPosition) {
-            window.scrollTo(0, parseInt(scrollPosition));
-        }
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: true,
+        positionClass: 'toast-top-center',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut'
     };
+    $(document).ready(function () {
+        $('.prot_cart').on('click', function () {
+            var productId = $(this).data('product-id');
+            var productPrice = $(this).data('product-price');
+            var productImage = $(this).data('product-image');
 
-    // Hàm để lấy giá trị của cookie
-    function getCookie(name) {
-        var value = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return value ? value.pop() : '';
-    }
+            // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Cart")',
+                method: 'POST',
+                data: {
+                    id: productId,
+                    img: productImage,
+                    price: productPrice
+                },
+                success: function (response) {
+                    if (response.code) {
+                        showId('cart_icon');
+                        toastr.success(response.msg);
+                    } else {
+                        toastr.error(response.msg);
+                    }
+                },
+                error: function () {
+                    // Xử lý lỗi yêu cầu Ajax (nếu có)
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                }
+            });
+        });
+    });
 </script>

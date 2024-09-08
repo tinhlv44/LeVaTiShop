@@ -42,6 +42,7 @@ namespace LeVaTiShop.Models
         {
             quantity = newQuantity;
         }
+
     }
 
 }

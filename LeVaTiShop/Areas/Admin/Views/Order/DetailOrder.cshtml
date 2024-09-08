@@ -1,8 +1,9 @@
 ﻿@model List<LeVaTiShop.Models.DetailOrder>
 @{
-    ViewBag.Title = "UserDetail";
+    ViewBag.Title = "Chi tiế đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     LeVaTiShop.Models.function f = new LeVaTiShop.Models.function();
+
 }
 
 
@@ -16,40 +17,60 @@
 
                 <div class="oj_content_list">
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.)*@ Tên khách hàng: </p>
+                        <p class="oj_content_label">Họ và tên: </p>
                         <p class="oj_content_p">@Model[0].Order.User.fullName</p>
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.Order.state)*@Trạng thái đơn hàng: </p>
-                        <p class="oj_content_p">@Model[0].Order.state</p>
+                        <p class="oj_content_label">Trạng thái: </p>
+                        @{
+                            string state;
+                            string hexColor;
+                            f.getState(Model[0].Order.state, out state, out hexColor);
+                        }
+                        @*<p class="oj_content_p">@state</p>*@
+                        @Html.DropDownListFor(model => model[0].Order.state, new SelectList(
+                            new List<SelectListItem>
+                            {
+                                new SelectListItem { Value = "0", Text = "Chờ duyệt" },
+                                new SelectListItem { Value = "1", Text = "Xử lí" },
+                                new SelectListItem { Value = "2", Text = "Đang giao" },
+                                new SelectListItem { Value = "3", Text = "Hoàn thành" },
+                                new SelectListItem { Value = "4", Text = "Hủy" }
+                            },
+                            "Value",
+                            "Text",
+                            Model[0].Order.state
+                        ), new { id = "newStatus", name = "newStatus", onchange = "updateOrderStatus()" })
                     </div>
                     <div class="oj_content_item">
-                        <p class="oj_content_label">@*@Html.DisplayNameFor(model => model.Order.dateOrder)*@Ngày đặt hàng: </p>
+                        <p class="oj_content_label">Thời gian đặt hàng: </p>
                         <p class="oj_content_p">@Model[0].Order.dateOrder</p>
                     </div>
-                    <!--<div class="oj_content_item">
-                        <p class="oj_content_label">-->
-                    @*@Html.DisplayNameFor(model => model.quantity)*@
-                    <!--</p>
-                        <p class="oj_content_p">@Model[0].quantity</p>
-                    </div>-->
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">Đã thanh toán: </p>
+                        <input type="checkbox" class="relo_inputcheck" id="checkBox" name="name" @(Model[0].Order.isPay ? "checked" : "") />
+                    </div>
+                    <div class="oj_content_item">
+                        <p class="oj_content_label">Tổng giá trị: </p>
+                        <p class="oj_content_p">@Html.FormatValue(Model.Sum(s => s.total), "{0:#,##0}") VNĐ</p>
+                    </div>
                     <table class="table_list w-100">
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model[0].idProduct)
+                                    Mã sản phẩm
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model[0].Product.nameProduct)
+                                    Tên sản phẩm
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model[0].Product.image)
+                                    Ảnh bìa
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model[0].quantity)
+                                    Số lượng
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model[0].Product.price)
+                                    Thành tiền
                                 </th>
                             </tr>
 
@@ -67,13 +88,12 @@
                                     </td>
                                     <td>
                                         <img src="~/set/img/product/@i.Product.nameProduct/@(i.Product.image.Substring(1,6)+".jpg")" alt="Alternate Text" />
-                                        @*@i.Product.image*@
                                     </td>
                                     <td>
                                         @i.quantity
                                     </td>
                                     <td>
-                                        @Html.FormatValue(i.Product.price, "{0:#,##0}") VNĐ
+                                        @Html.FormatValue(i.total, "{0:#,##0}") VNĐ
                                     </td>
                                 </tr>
                             }
@@ -88,4 +108,64 @@
     </div>
 
 </div>
+@section scripts{
+    <script>
+        function updateOrderStatus() {
+            var selectElement = $("#newStatus");
+            var newStatus = selectElement.val();
+            var idOrder = @Model[0].Order.idOrder; // Lấy giá trị idOrder từ Model
 
+            // Gửi yêu cầu AJAX
+            $.ajax({
+                url: '@Url.Action("updateState", "Order")',
+                type: "POST",
+                data: {
+                    idOrder: idOrder,
+                    state: newStatus
+                },
+                success: function (data) {
+                    if (data.code) {
+                        toastr.success(data.msg);
+                    }
+                    else {
+                        toastr.error(data.msg);
+                    }
+                }
+                /*,
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }*/
+            });
+        }
+        $(document).ready(function () {
+            $('#checkBox').click(function () {
+                //$('#checkBox').prop('disabled', true);
+                var idOrder = @Model[0].Order.idOrder;
+                // Thực hiện yêu cầu AJAX
+                $.ajax({
+                    url: '@Url.Action("updateIspay", "Order")',
+                    type: "POST",
+                    data: {
+                        idOrder: idOrder
+                    },
+                    success: function (data) {
+                        if (data.code) {
+                            toastr.success(data.msg);
+                        }
+                        else {
+                            toastr.error(data.msg);
+                        }
+                    }
+                    /*,
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }*/
+                });
+                /*else {
+                    toastr.error("Đơn hàng này đã thanh toán. Không thể thay đổi.");
+                }*/
+            });
+        });
+    </script>
+
+}

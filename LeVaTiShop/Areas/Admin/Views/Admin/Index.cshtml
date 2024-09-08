@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<LeVaTiShop.Models.User>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý tài khoản";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,10 +11,10 @@
 <div class="content_main">
     <div class="content_titleList">
         <div>
-            <a href="#" class="btn btn_add">
-                <i class="fas fa-plus"></i>
-                Thêm mới
-            </a>
+            @*<a href="#" class="btn btn_add">
+                    <i class="fas fa-plus"></i>
+                    Thêm mới
+                </a>*@
         </div>
         <div>
             <form action="@Url.Action("Index", "Admin")" method="post" class="searchBar_admin">
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="content_list">
-        @if (Model == null)
+        @if (Model == null || !Model.Any())
         {
             <div>
                 <div class="pcart_hollow">
@@ -42,22 +42,22 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.idUser)
+                            Mã tài khoản
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.fullName)
+                            Họ và tên
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.email)
+                            Email
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.address)
+                            Địa chỉ
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.phone)
+                            Số điện thoại
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.role)
+                            Quyền
                         </th>
                         <th class="th_btn">
 
@@ -67,46 +67,50 @@
                 <tbody>
                     @foreach (var i in Model)
                     {
-                        <tr>
-                            <td>
-                                @i.idUser
-                            </td>
-                            <td>
-                                @i.fullName
-                            </td>
-                            <td>
-                                @i.email
-                            </td>
-                            <td>
-                                @i.address
-                            </td>
-                            <td>
-                                @i.phone
-                            </td>
-                            <td>
-                                @if (i.role == true && i.idUser == 1)
-                                {
-                                    <p>Admin</p>
-                                }
-                                else if (i.role == true)
-                                {
-                                    <p>Quản lí</p>
-                                }
-                                else
-                                {
-                                    <p>Khách hàng</p>
-                                }
-                            </td>
+                        if (i.idUser != 0)
+                        {
 
-                            <td class="td_btn">
-                                <a href="@Url.Action("UserDetail","Admin", new {id=i.idUser})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                                <a class="btn btn_min btn_trash" href="#" title="Xóa" onclick="show('modal_admin')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    @i.idUser
+                                </td>
+                                <td>
+                                    @i.fullName
+                                </td>
+                                <td>
+                                    @i.email
+                                </td>
+                                <td>
+                                    @i.address
+                                </td>
+                                <td>
+                                    @i.phone
+                                </td>
+                                <td>
+                                    @if (i.role == true && i.idUser == 1)
+                                    {
+                                        <p>Admin</p>
+                                    }
+                                    else if (i.role == true)
+                                    {
+                                        <p>Quản lí</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Khách hàng</p>
+                                    }
+                                </td>
+
+                                <td class="td_btn">
+                                    <a href="@Url.Action("UserDetail","Admin", new {id=i.idUser})" class="btn btn_min btn_detail" type="button" title="Thông tin chi tiết">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </a>
+                                    <button class="btn btn_min btn_trash" name="delete" id="@i.idUser" title="Xóa" onclick="show('modal_admin')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -115,52 +119,41 @@
     </div>
 </div>
 
-<div class="bg_modal" id="modal_admin">
-    <div class="modal_box modal_box_detail set_center">
-        <div class="modal_body">
-            <div class="modal_title">
-                <h5>Cảnh báo</h5>
-            </div>
-            <div class="modal_content">
-                @*<div class="modal_content_item">
-                    <label class="modal_content_label">ID tài khoản</label>
-                    <input class="modal_content_input" type="number" value="1" disabled>
-                </div>
-                <div class="modal_content_item">
-                    <label class="modal_content_label">Họ và tên</label>
-                    <input class="modal_content_input" type="text" required="" value="Lê Văn">
-                </div>
-                <div class="modal_content_item">
-                    <label class="modal_content_label">Email</label>
-                    <input class="modal_content_input" type="email" required="" value="26hh@gg.com">
-                </div>
-                <div class="modal_content_item">
-                    <label class="modal_content_label">Địa chỉ</label>
-                    <input class="modal_content_input" type="text" required="" value="VN">
-                </div>
-                <div class="modal_content_item">
-                    <label class="modal_content_label">Số điện thoại</label>
-                    <input class="modal_content_input" type="tel" required="" value="0444">
-                </div>
-                <div class="modal_content_item">
-                    <label for="exampleSelect1" class="modal_content_label">Quyền</label>
-                    <select class="modal_content_input" id="exampleSelect1">
-                        <option>Admin</option>
-                        <option>Quản lý</option>
-                        <option>Khách hàng</option>
-                    </select>
-                </div>*@
-                <p>Bạn có chắc chắn muốn xóa</p>
-            </div>
-        </div>
-        <div class="modal_footer">
-            <button class="btn btn_save" type="button">Đồng ý</button>
-            <button class="btn btn_cancel" data-dismiss="bg_modal" onclick="show('modal_admin')">Hủy bỏ</button>
-        </div>
-    </div>
-</div>
+@section scripts{
+    <script>
+        // Cập nhật giờ hiện tại mỗi giây
+        setInterval(displayCurrentTime, 1000);
 
-<script>
-    // Cập nhật giờ hiện tại mỗi giây
-    setInterval(displayCurrentTime, 1000);
-</script>
+        var idToDelete;
+        $(document).on('click', "button[name='delete']", function () {
+            idToDelete = $(this).attr('id');
+            $('#modalbox_heading').text('Cảnh báo');
+            $('#modalbox_ct').text('Bạn có chắc chắn muốn xóa tài khoản này?');
+            $('#btnDelete').show();
+            $('#btnCancel').show();
+            $('#modal_admin').show();
+            hide_Model("modal_admin");
+        })
+
+        $('#btnDelete').click(function () {
+            $.ajax({
+                url: '/Admin/Admin/DeleteUser',
+                type: 'post',
+                data: {
+                    id: idToDelete
+                },
+                success: function (data) {
+                    if (data.code) {
+                        toastr.success(data.msg + '<br>Tải lại trang sau 2 giây.');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                    $('#modal_admin').hide();
+                }
+            });
+        })
+    </script>
+}
